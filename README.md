@@ -1,6 +1,6 @@
-# pipeline-call-NoncanonicalPeptides
+# call-NoncanonicalPeptides
 
-- [pipeline-call-NoncanonicalPeptides](#pipeline-call-noncanonicalpeptides)
+- [call-NoncanonicalPeptides](#call-noncanonicalpeptides)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
@@ -26,13 +26,11 @@ This pipeline takes genomic and transcriptomic variation data such as SNP, INDEL
 nextflow run paht/to/pipeline-call-NoncanonicalPeptide/main.nf -c sample.config
 ```
 
-> :warning: This pipeline should only run one sample at a time. The inpu CSV file should only contain one sample for lable free proteomics. For isobaric labeled (e.g., TMT) proteomics, the CSV file can contain all samples within a TMT plex.
+> :warning: This pipeline should only run one sample at a time. The input CSV file should only contain one sample for label free proteomics. For isobaric labeled (e.g., TMT) proteomics, the CSV file should contain all samples within a TMT plex.
 
 ---
 
 ## Flow Diagram
-
-A directed acyclic graph of your pipeline.
 
 ![flow-chart](img/diagram.drawio.svg?raw=true)
 
@@ -80,7 +78,7 @@ The input CSV file must contain the fields listed below. See example [here](inpu
 ## Outputs
 
  Output and Output Parameter/Flag | Description |
-| ------------ | ------------ | ------------------------ |
+| ------------ | ------------------------ |
 | <sample_name>_<source>_<software>.gvf | Intermediate GVF files. |
 | <sample_name>_variantPeptide.fasta | The complete variant peptide FASTA file. |
 | split/<sample_name>_<source>_<software>.fasta | Splited database FASTA files can be used for multi-step library search and FDR calculation. |
