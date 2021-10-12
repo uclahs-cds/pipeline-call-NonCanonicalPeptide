@@ -1,6 +1,6 @@
-# call-NoncanonicalPeptides
+# call-NonCanonicalPeptides
 
-- [call-NoncanonicalPeptides](#call-noncanonicalpeptides)
+- [call-NonCanonicalPeptides](#call-noncanonicalpeptides)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
