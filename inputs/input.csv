@@ -1,0 +1,11 @@
+﻿sample_name,software,alt_splice_type,source,path
+sample_1,VEP,,gSNP,/path/to/sample_1_vep_gSNP.txt
+sample_1,VEP,,gINDEL,/path/to/sample_1_vep_gINDEL.txt
+sample_1,STAR-Fusion,,Fusion,/path/to/sample_1_start_fusion.txt
+sample_1,rMATS,SE,AlternativeSplicing,/path/to/rmats_se.txt
+sample_1,rMATS,A5SS,AlternativeSplicing,/path/to/rmats_a5ss.txt
+sample_1,rMATS,A3SS,AlternativeSplicing,/path/to/rmats_a3ss.txt
+sample_1,rMATS,MXE,AlternativeSplicing,/path/to/rmats_mxi.txt
+sample_1,rMATS,RI,AlternativeSplicing,/path/to/rmats_ri.txt
+sample_1,CIRCexplorer,,circRNA,/path/to/CIRCexplorer_known.txt
+sample_1,REDItools,,RNAEditing,/path/to/reditools_table.txt
