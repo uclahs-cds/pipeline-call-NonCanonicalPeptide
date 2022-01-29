@@ -1,0 +1,12 @@
+##fileformat=VCFv4.2
+##mopepgen_version=0.0.1
+##parser=parseSTARFusion
+##reference_index=/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/work/1b/ec0f5186bc5f918aba15945b8842e4/index
+##genome_fasta=
+##annotation_gtf=
+##source=Fusion
+##CHROM=<Description='Gene ID'>
+##INFO=<ID=TRANSCRIPT_ID,Number=1,Type=String,Description="Transcript ID">
+##INFO=<ID=GENE_SYMBOL,Number=1,Type=String,Description="Gene Symbol">
+##INFO=<ID=GENOMIC_POSITION,Number=1,Type=String,Description="Genomic Position">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
