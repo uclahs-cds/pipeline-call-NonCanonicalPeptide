@@ -5,7 +5,14 @@ process split_database {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir params.final_output_dir,
+        mode: 'copy',
+        pattern: { output_dir }
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         val sample_names
@@ -16,6 +23,7 @@ process split_database {
 
     output:
         file output_dir
+        file ".command.*"
 
     script:
     output_dir = 'split'

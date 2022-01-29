@@ -73,11 +73,11 @@ workflow {
    parse_rMATS(ich_rmats, file(params.index_dir))
 
    parser_output = Channel.from().mix(
-      parse_VEP.out,
-      parse_STARFusion.out,
-      parse_REDItools.out,
-      parse_CIRCexplorer.out,
-      parse_rMATS.out
+      parse_VEP.out[0],
+      parse_STARFusion.out[0],
+      parse_REDItools.out[0],
+      parse_CIRCexplorer.out[0],
+      parse_rMATS.out[0]
    ).collect()
 
    call_variant(sample_names, parser_output, file(params.index_dir))
@@ -86,7 +86,7 @@ workflow {
       split_database(
          sample_names,
          parser_output,
-         call_variant.out,
+         call_variant.out[0],
          file(params.noncoding_fasta),
          file(params.index_dir)
       )

@@ -5,7 +5,14 @@ process call_variant {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir params.final_output_dir,
+        mode: 'copy',
+        pattern: "*.fasta"
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         val sample_names
@@ -14,6 +21,7 @@ process call_variant {
 
     output:
         file output_fasta optional true
+        file ".command.*"
 
     script:
     output_fasta = "${sample_names.join('_')}-variantPeptides.fasta"
