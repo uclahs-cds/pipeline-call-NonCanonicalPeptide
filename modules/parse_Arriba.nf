@@ -1,6 +1,18 @@
 /* Module to call moPepGen parserFusionCatcher */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'min_split_read1': '--min-split-read1',
+    'min_split_read2': '--min-split-read2',
+    'min_confidence': '--min-confidence'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_Arriba {
 
     container params.docker_image_moPepGen
@@ -29,7 +41,7 @@ process parse_Arriba {
 
     script:
     output_path = "${sample_name}_${source}_Arriba.gvf"
-    extra_args = generate_args(params, 'parseArriba', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'parseArriba', ARGS, FLAGS)
     """
     moPepGen parseArriba \
         --input-path ${input_file} \

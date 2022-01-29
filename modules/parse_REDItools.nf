@@ -1,6 +1,19 @@
 /* Module to call moPepGen parseREDItools */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'transcript_id_column': '--transcript-id-column',
+    'min_coverage_alt': '--min-coverage-alt',
+    'min_frequency_alt': '--min-frequency-alt',
+    'min_coverage_dna': '--min-coverage-dna'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_REDItools {
 
     container params.docker_image_moPepGen
@@ -29,7 +42,7 @@ process parse_REDItools {
 
     script:
     output_path = "${sample_name}_${source}_REDItools.gvf"
-    extra_args = generate_args(params, 'parseREDItools', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'parseREDItools', ARGS, FLAGS)
     """
     moPepGen parseREDItools \
         --input-path ${input_file} \

@@ -3,6 +3,7 @@ UCLA0001,VEP,,gSNP,test/files/vep_snp.txt
 UCLA0001,VEP,,gINDEL,test/files/vep_indel.txt
 UCLA0001,STAR-Fusion,,STARFusion,test/files/star_fusion.txt
 UCLA0001,FusionCatcher,,FusionCatcher,test/files/fusion_catcher.txt
+UCLA0001,Arriba,,Arriba,test/files/arriba.txt
 UCLA0001,rMATs,SE,rMATs,test/files/rmats_se.txt
 UCLA0001,rMATs,A5SS,rMATs,test/files/rmats_a5ss.txt
 UCLA0001,rMATs,A3SS,rMATs,test/files/rmats_a3ss.txt

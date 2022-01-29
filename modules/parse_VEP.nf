@@ -1,6 +1,14 @@
 /* Module to call moPepGen parseVEP */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [:]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_VEP {
 
     container params.docker_image_moPepGen
@@ -29,7 +37,7 @@ process parse_VEP {
 
     script:
     output_path = "${sample_name}_${source}_VEP.gvf"
-    args = generate_args(params, 'parseVEP', ['source', 'index_dir'])
+    args = generate_args(params, 'parseVEP', ARGS, FLAGS)
     """
     moPepGen parseVEP \
         --input-path ${input_file} \

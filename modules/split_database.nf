@@ -1,6 +1,21 @@
 /* module for splitting database */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'order_source': '--order-source',
+    'group_source': '--group-source',
+    'max_source_groups': '--max-source-groups',
+    'additional_split': '--additional-split'
+]
+
+FLAGS = [
+    'invalid-protein-as-noncoding': '--invalid-protein-as-noncoding'
+]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process split_database {
 
     container params.docker_image_moPepGen
@@ -29,7 +44,7 @@ process split_database {
     output_dir = 'split'
     output_prefix = "${output_dir}/${sample_names.join('_')}"
     noncoding_arg = noncoding_fasta.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_fasta}"
-    extra_args = generate_args(params, 'splitDatabase', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'splitDatabase', ARGS, FLAGS)
     """
     moPepGen splitDatabase \
         --gvf ${gvfs} \

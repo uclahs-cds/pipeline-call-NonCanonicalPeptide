@@ -1,6 +1,16 @@
 /* Module to call moPepGen parseSTARFusion */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'min_est_j': '--min-est-j'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_STARFusion {
 
     container params.docker_image_moPepGen
@@ -29,7 +39,7 @@ process parse_STARFusion {
 
     script:
     output_path = "${sample_name}_${source}_STARFusion.gvf"
-    extra_args = generate_args(params, 'parseSTARFusion', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'parseSTARFusion', ARGS, FLAGS)
     """
     moPepGen parseSTARFusion \
         --input-path ${input_file} \

@@ -1,6 +1,17 @@
 /* Module to call moPepGen parseRMATS */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'min_ijc': '--min-ijc',
+    'min_sjc': '--min-sjc'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_rMATS {
 
     container params.docker_image_moPepGen
@@ -39,7 +50,7 @@ process parse_rMATS {
     input_args += a3ss.name == '_NO_FILE' ? " --a3ss ${a3ss}" : ''
     input_args += mxe.name == '_NO_FILE' ? " --mxe ${mxe}" : ''
     input_args += ri.name == '_NO_FILE' ? " --ri ${ri}" : ''
-    extra_args = generate_args(params, 'parseRMATS', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'parseRMATS', ARGS, FLAGS)
     """
     moPepGen parseRMATS \
         ${input_args} \

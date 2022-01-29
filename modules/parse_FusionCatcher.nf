@@ -1,6 +1,17 @@
 /* Module to call moPepGen parserFusionCatcher */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'max_common_mapping': '--max-common-mapping',
+    'min_spanning_unique': '--min-spanning-unique'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_FusionCatcher {
 
     container params.docker_image_moPepGen
@@ -29,7 +40,7 @@ process parse_FusionCatcher {
 
     script:
     output_path = "${sample_name}_${source}_FusionCatcher.gvf"
-    extra_args = generate_args(params, 'parseFusionCatcher', ['index_dir', 'source'])
+    extra_args = generate_args(params, 'parseFusionCatcher', ARGS, FLAGS)
     """
     moPepGen parseFusionCatcher \
         --input-path ${input_file} \

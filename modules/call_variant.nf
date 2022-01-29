@@ -1,6 +1,24 @@
 /* module to call variant peptides */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'max_variants_per_node': '--max-variants-per-node',
+    'cleavage_rule': '--cleavage-rule',
+    'miscleavage': '--miscleavage',
+    'min_mw': '--min-mw',
+    'min_length': '--min-length',
+    'max_length': '--max-length'
+]
+
+FLAGS = [
+    'noncanonical_transcripts': '--noncanonical-transcripts',
+    'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding'
+]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process call_variant {
 
     container params.docker_image_moPepGen
@@ -25,7 +43,7 @@ process call_variant {
 
     script:
     output_fasta = "${sample_names.join('_')}-variantPeptides.fasta"
-    extra_args = generate_args(params, 'callVariant', ['index_dir'])
+    extra_args = generate_args(params, 'callVariant', ARGS, FLAGS)
     """
     moPepGen callVariant \
         --input-path ${gvf_files} \
