@@ -1,7 +1,7 @@
-/* Module to call moPepGen parseCIRCexplorer */
+/* Module to call moPepGen parserFusionCatcher */
 include { generate_args } from "${moduleDir}/common"
 
-process parse_CIRCexplorer {
+process parse_FusionCatcher {
 
     container params.docker_image_moPepGen
 
@@ -21,17 +21,17 @@ process parse_CIRCexplorer {
             val(source),
             file(input_file)
         )
-        file(index_dir)
+        file index_dir
 
     output:
         file output_path optional true
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_CIRCexplorer.gvf"
-    extra_args = generate_args(params, 'parseCIRCexplorer', ['index_dir', 'source'])
+    output_path = "${sample_name}_${source}_FusionCatcher.gvf"
+    extra_args = generate_args(params, 'parseFusionCatcher', ['index_dir', 'source'])
     """
-    moPepGen parseCIRCexplorer \
+    moPepGen parseFusionCatcher \
         --input-path ${input_file} \
         --index-dir ${index_dir} \
         --output-path ${output_path} \

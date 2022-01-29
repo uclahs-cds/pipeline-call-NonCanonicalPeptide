@@ -1,4 +1,12 @@
 sample_name,software,alt_splice_type,source,path
-sample_1,VEP,,gSNP,test/files/vep_snp.txt
-sample_1,VEP,,gINDEL,test/files/vep_indel.txt
-sample_1,STAR-Fusion,,Fusion,test/files/star_fusion.txt
+UCLA0001,VEP,,gSNP,test/files/vep_snp.txt
+UCLA0001,VEP,,gINDEL,test/files/vep_indel.txt
+UCLA0001,STAR-Fusion,,STARFusion,test/files/star_fusion.txt
+UCLA0001,FusionCatcher,,FusionCatcher,test/files/fusion_catcher.txt
+UCLA0001,rMATs,SE,rMATs,test/files/rmats_se.txt
+UCLA0001,rMATs,A5SS,rMATs,test/files/rmats_a5ss.txt
+UCLA0001,rMATs,A3SS,rMATs,test/files/rmats_a3ss.txt
+UCLA0001,rMATs,MXE,rMATs,test/files/rmats_mxe.txt
+UCLA0001,rMATs,RI,rMATs,test/files/rmats_ri.txt
+UCLA0001,CIRCexplorer,,circRNA,test/files/circexplorer.txt
+UCLA0001,REDItools,,RNAEditing,test/files/reditools_annotated.txt

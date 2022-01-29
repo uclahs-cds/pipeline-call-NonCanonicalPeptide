@@ -4,6 +4,8 @@ nextflow.enable.dsl = 2
 include { print_prelogue } from './modules/common'
 include { parse_VEP } from './modules/parse_VEP'
 include { parse_STARFusion } from './modules/parse_STARFusion'
+include { parse_FusionCatcher } from './modules/parse_FusionCatcher'
+include { parse_Arriba } from './modules/parse_Arriba'
 include { parse_REDItools } from './modules/parse_REDItools'
 include { parse_CIRCexplorer } from './modules/parse_CIRCexplorer'
 include { parse_rMATS } from './modules/parse_rMATS'
@@ -23,12 +25,19 @@ workflow {
             return [it[0], it[3], it[4]]
          star_fusion: it[1] == 'STAR-Fusion'
             return [it[0], it[3], it[4]]
-         rmats: it[1] == 'rMATS'
+         fusion_catcher: it[1] == 'FusionCatcher'
+            return [it[0], it[3], it[4]]
+         arriba: it[1] == 'Arriba'
+            return [it[0], it[3], it[4]]
+         rmats: it[1] == 'rMATs'
             return it
          circexplorer: it[1] == 'CIRCexplorer'
             return [it[0], it[3], it[4]]
-         reditools: it[1] == 'RETItools'
+         reditools: it[1] == 'REDItools'
             return [it[0], it[3], it[4]]
+         other: true
+            throw new Exception("Variant called by software ${it[1]} is not supported.")
+            return
       }
 
    ich_rmats = ich_branched.rmats.map {[it[0], it]}.groupTuple(by:0).map {
@@ -39,9 +48,10 @@ workflow {
       def a3ss = '_NO_FILE'
       def mxe = '_NO_FILE'
       def ri = '_NO_FILE'
-      for (x in it[0]) {
+      for (x in it[1]) {
          switch( x[2] ) {
-            case 'SE': se = x[4];
+            case 'SE':
+               se = x[4];
                break
             case 'A5SS':
                a5ss = x[4]
@@ -56,7 +66,7 @@ workflow {
                ri = x[4]
                break
             default:
-               throw new Exception("rMATS type ${x[2]} unknown")
+               throw new Exception("rMATs type ${x[2]} unknown")
          }
       }
       return [sample, source, se, a5ss, a3ss, mxe, ri]
@@ -65,6 +75,10 @@ workflow {
    parse_VEP(ich_branched.vep, file(params.index_dir))
 
    parse_STARFusion(ich_branched.star_fusion, file(params.index_dir))
+
+   parse_FusionCatcher(ich_branched.fusion_catcher, file(params.index_dir))
+
+   parse_Arriba(ich_branched.arriba, file(params.index_dir))
 
    parse_REDItools(ich_branched.reditools, file(params.index_dir))
 
