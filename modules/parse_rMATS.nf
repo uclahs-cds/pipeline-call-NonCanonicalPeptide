@@ -1,4 +1,5 @@
 /* Module to call moPepGen parseRMATS */
+include { generate_args } from "${moduleDir}/common"
 
 process parse_rMATS {
 
@@ -16,25 +17,26 @@ process parse_rMATS {
             file(mxe),
             file(ri)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
 
     script:
-    output_prefix = "${sample_name}_${source}_rMATS"
-    output_gvf = "${output_prefix}.gvf"
+    output_path = "${sample_name}_${source}_rMATs.gvf"
     input_args = ''
-    input_args += se.name == '_NO_FILE' ? " --skipped-exon ${se}" : ''
-    input_args += a5ss.name == '_NO_FILE' ? " --alternative-5-splicing ${a5ss}" : ''
-    input_args += a3ss.name == '_NO_FILE' ? " --alternative-3-splicing ${a3ss}" : ''
-    input_args += mxe.name == '_NO_FILE' ? " --mutually-exclusive-exons ${mxe}" : ''
-    input_args += ri.name == '_NO_FILE' ? " --retained-intron ${ri}" : ''
+    input_args += se.name == '_NO_FILE' ? " --se ${se}" : ''
+    input_args += a5ss.name == '_NO_FILE' ? " --a5ss ${a5ss}" : ''
+    input_args += a3ss.name == '_NO_FILE' ? " --a3ss ${a3ss}" : ''
+    input_args += mxe.name == '_NO_FILE' ? " --mxe ${mxe}" : ''
+    input_args += ri.name == '_NO_FILE' ? " --ri ${ri}" : ''
+    extra_args = generate_args(params, 'parseRMATS', ['index_dir', 'source'])
     """
     moPepGen parseRMATS \
         ${input_args} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
+        ${extra_args} \
         --source ${source}
     """
 }

@@ -13,21 +13,19 @@ process parse_STARFusion {
             val(source),
             file(input_file)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
 
     script:
-    output_prefix = "${sample_name}_${source}_STARFusion"
-    output_gvf = "${output_prefix}.gvf"
-    arg_list = ['min_est_j']
-    extra_args = generate_args(params, arg_list)
+    output_path = "${sample_name}_${source}_STARFusion.gvf"
+    extra_args = generate_args(params, 'parseSTARFusion', ['index_dir', 'source'])
     """
     moPepGen parseSTARFusion \
-        --fusion ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
         --source ${source} \
         ${extra_args}
     """

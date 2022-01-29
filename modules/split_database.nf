@@ -12,7 +12,7 @@ process split_database {
         file gvfs
         file variant_fasta
         file noncoding_fasta
-        file genome_index
+        file index_dir
 
     output:
         file output_dir
@@ -21,15 +21,14 @@ process split_database {
     output_dir = 'split'
     output_prefix = "${output_dir}/${sample_names.join('_')}"
     noncoding_arg = noncoding_fasta.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_fasta}"
-    arg_list = ['order_source', 'group_source', 'max_source_groups', 'additional_split']
-    extra_args = generate_args(params, arg_list)
+    extra_args = generate_args(params, 'splitDatabase', ['index_dir', 'source'])
     """
     moPepGen splitDatabase \
-        --variant-gvf ${gvfs}\
+        --gvf ${gvfs} \
         --variant-peptides ${variant_fasta} \
         ${noncoding_arg} \
         ${extra_args} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix}
+        --index-dir ${index_dir} \
+        --output-prefix ${output_prefix} \
     """
 }

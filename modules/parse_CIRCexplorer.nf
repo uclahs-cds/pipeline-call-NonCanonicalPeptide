@@ -13,24 +13,19 @@ process parse_CIRCexplorer {
             val(source),
             file(input_file)
         )
-        file(genome_index)
+        file(index_dir)
 
     output:
-        file output_gvf
+        file output_path optional true
 
     script:
-    output_prefix = "${sample_name}_${source}_CIRCexplorer"
-    output_gvf = "${output_prefix}.gvf"
-    arg_list = ['min_read_number', 'min_fpb_circ', 'min_circ_score']
-    extra_args = generate_args(params, arg_list)
-    if (params.containsKey('circexplorer3') and params.circexplorer3 == true) {
-        extra_args += " --circexplorer3"
-    }
+    output_path = "${sample_name}_${source}_CIRCexplorer.gvf"
+    extra_args = generate_args(params, 'parseCIRCexplorer', ['index_dir', 'source'])
     """
     moPepGen parseCIRCexplorer \
-        --vep-txt ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
         --source ${source} \
         --circexplorer3 ${params.circexplorer3} \
         --min_read_number ${params.min_read_number} \

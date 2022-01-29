@@ -10,20 +10,20 @@ process call_variant {
     input:
         val sample_names
         file gvf_files
-        file genome_index
+        file index_dir
 
     output:
-        file output_fasta
+        file output_fasta optional true
 
     script:
     output_fasta = "${sample_names.join('_')}-variantPeptides.fasta"
-    arg_list = ['miscleavage', 'min_mw', 'min_length', 'max_length']
-    extra_args = generate_args(params, arg_list)
+    extra_args = generate_args(params, 'callVariant', ['index_dir'])
     """
     moPepGen callVariant \
-        --input-variant ${gvf_files} \
-        --output-fasta ${output_fasta} \
-        --index-dir ${genome_index} \
-        ${extra_args}
+        --input-path ${gvf_files} \
+        --output-path ${output_fasta} \
+        --index-dir ${index_dir} \
+        ${extra_args} \
+        --threads ${task.cpus}
     """
 }

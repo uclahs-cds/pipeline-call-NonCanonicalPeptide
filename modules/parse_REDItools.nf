@@ -13,21 +13,19 @@ process parse_REDItools {
             val(source),
             file(input_file)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
 
     script:
-    output_prefix = "${sample_name}_${source}_VEP"
-    output_gvf = "${output_prefix}.gvf"
-    arg_list = ['transcript_id_column']
-    extra_args = generate_args(params, arg_list)
+    output_path = "${sample_name}_${source}_REDItools.gvf"
+    extra_args = generate_args(params, 'parseREDItools', ['index_dir', 'source'])
     """
     moPepGen parseREDItools \
-        --reditools-table ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
         --source ${source} \
         ${extra_args}
     """

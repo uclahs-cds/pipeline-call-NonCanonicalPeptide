@@ -1,4 +1,5 @@
 /* Module to call moPepGen parseVEP */
+include { generate_args } from "${moduleDir}/common"
 
 process parse_VEP {
 
@@ -12,19 +13,20 @@ process parse_VEP {
             val(source),
             file(input_file)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
 
     script:
-    output_prefix = "${sample_name}_${source}_VEP"
-    output_gvf = "${output_prefix}.gvf"
+    output_path = "${sample_name}_${source}_VEP.gvf"
+    args = generate_args(params, 'parseVEP', ['source', 'index_dir'])
     """
     moPepGen parseVEP \
-        --vep-txt ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
-        --source ${source}
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
+        --source ${source} \
+        ${args}
     """
 }

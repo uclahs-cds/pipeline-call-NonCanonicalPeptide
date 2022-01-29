@@ -62,15 +62,15 @@ workflow {
       return [sample, source, se, a5ss, a3ss, mxe, ri]
    }
 
-   parse_VEP(ich_branched.vep, file(params.genome_index))
+   parse_VEP(ich_branched.vep, file(params.index_dir))
 
-   parse_STARFusion(ich_branched.star_fusion, file(params.genome_index))
+   parse_STARFusion(ich_branched.star_fusion, file(params.index_dir))
 
-   parse_REDItools(ich_branched.reditools, file(params.genome_index))
+   parse_REDItools(ich_branched.reditools, file(params.index_dir))
 
-   parse_CIRCexplorer(ich_branched.circexplorer, file(params.genome_index))
+   parse_CIRCexplorer(ich_branched.circexplorer, file(params.index_dir))
 
-   parse_rMATS(ich_rmats, file(params.genome_index))
+   parse_rMATS(ich_rmats, file(params.index_dir))
 
    parser_output = Channel.from().mix(
       parse_VEP.out,
@@ -80,7 +80,7 @@ workflow {
       parse_rMATS.out
    ).collect()
 
-   call_variant(sample_names, parser_output, file(params.genome_index))
+   call_variant(sample_names, parser_output, file(params.index_dir))
 
    if (params.split_database) {
       split_database(
@@ -88,7 +88,7 @@ workflow {
          parser_output,
          call_variant.out,
          file(params.noncoding_fasta),
-         file(params.genome_index)
+         file(params.index_dir)
       )
    }
 }

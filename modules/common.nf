@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 /*
     Generate command line args. Argument from `arg_list` will be added to the returned value if it
     is specified in the `par`
@@ -8,12 +10,16 @@
     output:
         A string of command line args.
 */
-def generate_args(par, arg_list) {
+def generate_args(Map par, String namespace, List blacklist) {
+    if (blacklist == null) blacklist = []
     def args = ''
-    for (it in arg_list) {
-        if (par.containsKey(it)) {
-            args += " --${it.replace('_', '-')} ${par[it]}"
+    if(!(par.containsKey(namespace))) return args
+    for (it in par[namespace].keySet()) {
+        if(it in blacklist) {
+            throw new Exception("Cannot set argument ${it} from the program specific namespace. Please varify your config file.")
+            continue
         }
+        args += " --${it.replace('_', '-')} ${par[namespace][it]}"
     }
     return args
 }
@@ -45,7 +51,7 @@ def print_prelogue() {
 
         - input:
             input_csv   : ${params.input_csv}
-            genome_index: ${params.genome_index}
+            index_dir: ${params.index_dir}
 
         - output:
             output_dir: ${params.output_dir}
