@@ -46,7 +46,7 @@ process split_database {
     noncoding_arg = noncoding_fasta.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_fasta}"
     extra_args = generate_args(params, 'splitDatabase', ARGS, FLAGS)
     """
-    beforeScript 'set -euo pipefail'
+    set -euo pipefail
 
     moPepGen splitDatabase \
         --gvf ${gvfs} \

@@ -52,7 +52,7 @@ process parse_rMATS {
     input_args += ri.name == '_NO_FILE' ? " --ri ${ri}" : ''
     extra_args = generate_args(params, 'parseRMATS', ARGS, FLAGS)
     """
-    beforeScript 'set -euo pipefail'
+    set -euo pipefail
 
     moPepGen parseRMATS \
         ${input_args} \

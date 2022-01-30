@@ -18,8 +18,6 @@ process parse_REDItools {
 
     container params.docker_image_moPepGen
 
-    beforeScript 'set -euo pipefail'
-
     publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
         mode: 'copy',
         pattern: "*.gvf",
@@ -46,6 +44,8 @@ process parse_REDItools {
     output_path = "${sample_name}_${source}_REDItools.gvf"
     extra_args = generate_args(params, 'parseREDItools', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseREDItools \
         --input-path ${input_file} \
         --index-dir ${index_dir} \

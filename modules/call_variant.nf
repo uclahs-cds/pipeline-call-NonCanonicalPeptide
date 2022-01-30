@@ -45,6 +45,8 @@ process call_variant {
     output_fasta = "${sample_names.join('_')}-variantPeptides.fasta"
     extra_args = generate_args(params, 'callVariant', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen callVariant \
         --input-path ${gvf_files} \
         --output-path ${output_fasta} \

@@ -41,7 +41,7 @@ process parse_STARFusion {
     output_path = "${sample_name}_${source}_STARFusion.gvf"
     extra_args = generate_args(params, 'parseSTARFusion', ARGS, FLAGS)
     """
-    beforeScript 'set -euo pipefail'
+    set -euo pipefail
 
     moPepGen parseSTARFusion \
         --input-path ${input_file} \

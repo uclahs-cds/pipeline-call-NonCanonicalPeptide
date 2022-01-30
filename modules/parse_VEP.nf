@@ -39,7 +39,7 @@ process parse_VEP {
     output_path = "${sample_name}_${source}_VEP.gvf"
     args = generate_args(params, 'parseVEP', ARGS, FLAGS)
     """
-    beforeScript 'set -euo pipefail'
+    set -euo pipefail
 
     moPepGen parseVEP \
         --input-path ${input_file} \

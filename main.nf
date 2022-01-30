@@ -11,6 +11,7 @@ include { parse_CIRCexplorer } from './modules/parse_CIRCexplorer'
 include { parse_rMATS } from './modules/parse_rMATS'
 include { call_variant } from './modules/call_variant'
 include { split_database } from './modules/split_database'
+include { filter_fasta } from './modules/filter_fasta.nf'
 
 print_prelogue()
 
@@ -96,11 +97,22 @@ workflow {
 
    call_variant(sample_names, parser_output, file(params.index_dir))
 
+   if (params.filter_fasta) {
+      filter_fasta(
+         call_variant.out[0],
+         file(params.exprs_table),
+         file(params.index_dir)
+      )
+      variant_fasta = filter_fasta.out[0]
+   } else {
+      variant_fasta = call_variant.out[0]
+   }
+
    if (params.split_database) {
       split_database(
          sample_names,
          parser_output,
-         call_variant.out[0],
+         variant_fasta,
          file(params.noncoding_fasta),
          file(params.index_dir)
       )
