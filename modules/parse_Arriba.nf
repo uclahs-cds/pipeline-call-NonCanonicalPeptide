@@ -43,6 +43,8 @@ process parse_Arriba {
     output_path = "${sample_name}_${source}_Arriba.gvf"
     extra_args = generate_args(params, 'parseArriba', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseArriba \
         --input-path ${input_file} \
         --index-dir ${index_dir} \

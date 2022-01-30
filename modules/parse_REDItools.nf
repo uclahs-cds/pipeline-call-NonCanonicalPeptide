@@ -18,6 +18,8 @@ process parse_REDItools {
 
     container params.docker_image_moPepGen
 
+    beforeScript 'set -euo pipefail'
+
     publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
         mode: 'copy',
         pattern: "*.gvf",

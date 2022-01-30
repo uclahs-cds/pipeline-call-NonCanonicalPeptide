@@ -42,6 +42,8 @@ process parse_FusionCatcher {
     output_path = "${sample_name}_${source}_FusionCatcher.gvf"
     extra_args = generate_args(params, 'parseFusionCatcher', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseFusionCatcher \
         --input-path ${input_file} \
         --index-dir ${index_dir} \

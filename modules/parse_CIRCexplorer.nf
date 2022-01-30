@@ -47,6 +47,8 @@ process parse_CIRCexplorer {
     output_path = "${sample_name}_${source}_CIRCexplorer.gvf"
     extra_args = generate_args(params, 'parseCIRCexplorer', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseCIRCexplorer \
         --input-path ${input_file} \
         --index-dir ${index_dir} \
