@@ -1,0 +1,5 @@
+sample_name,path
+UCLA0001,test/files/vep_gSNP.gvf
+UCLA0001,test/files/vep_gINDEL.gvf
+UCLA0001,test/files/reditools.gvf
+UCLA0001,test/files/circ_rna.gvf

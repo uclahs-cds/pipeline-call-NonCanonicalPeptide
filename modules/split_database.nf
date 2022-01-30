@@ -30,7 +30,6 @@ process split_database {
         saveAs: { "log${file(it).name}" }
 
     input:
-        val sample_names
         file gvfs
         file variant_fasta
         file noncoding_fasta
@@ -42,7 +41,7 @@ process split_database {
 
     script:
     output_dir = 'split'
-    output_prefix = "${output_dir}/${sample_names.join('_')}"
+    output_prefix = "${output_dir}/${params.sample_name}"
     noncoding_arg = noncoding_fasta.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_fasta}"
     extra_args = generate_args(params, 'splitDatabase', ARGS, FLAGS)
     """
