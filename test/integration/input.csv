@@ -1,4 +1,0 @@
-sample_name,software,alt_splice_type,source,path
-sample_1,VEP,,gSNP,test/files/vep_snp.txt
-sample_1,VEP,,gINDEL,test/files/vep_indel.txt
-sample_1,STAR-Fusion,,Fusion,test/files/star_fusion.txt

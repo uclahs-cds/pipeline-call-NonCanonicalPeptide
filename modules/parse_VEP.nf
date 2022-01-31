@@ -1,30 +1,50 @@
 /* Module to call moPepGen parseVEP */
+include { generate_args } from "${moduleDir}/common"
+
+ARGS = [:]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
 
 process parse_VEP {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
+        mode: 'copy',
+        pattern: "*.gvf",
+        enabled: params.save_intermediate_files
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
+        file ".command.*"
 
     script:
-    output_prefix = "${sample_name}_${source}_VEP"
-    output_gvf = "${output_prefix}.gvf"
+    output_path = "${params.sample_name}_${source}_VEP.gvf"
+    args = generate_args(params, 'parseVEP', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseVEP \
-        --vep-txt ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
-        --source ${source}
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
+        --source ${source} \
+        ${args}
     """
 }

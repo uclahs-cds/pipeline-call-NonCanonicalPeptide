@@ -1,0 +1,19 @@
+##fileformat=VCFv4.2
+##mopepgen_version=0.0.1
+##parser=parseCIRCexplorer
+##reference_index=/hot/users/czhu/private-moPepGen/private-moPepGen-py/test/files/index
+##genome_fasta=
+##annotation_gtf=
+##source=circRNA
+##CHROM=<Description='Gene ID'>
+##INFO=<ID=TRANSCRIPT_ID,Number=1,Type=String,Description="Transcript ID">
+##INFO=<ID=GENE_SYMBOL,Number=1,Type=String,Description="Gene Symbol">
+##INFO=<ID=GENOMIC_POSITION,Number=1,Type=String,Description="Genomic Position">
+##INFO=<ID=OFFSET,Number=+,Type=Integer,Description="Offsets of fragments (exons or introns)">
+##INFO=<ID=LENGTH,Number=+,Type=Integer,Description="Lengths of fragments (exons or introns)">
+##INFO=<ID=INTRON,Number=+,Type=Integer,Description="Indices of fragments that are introns">
+##INFO=<ID=TRANSCRIPT,Number=1,Type=String,Description="Transcript ID associated with this circRNA">
+##POS=<Description="Gene coordinate of circRNA start">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+ENSG00000128408.9	0	CIRC-ENST00000614167.2-E1-E2	.	.	.	.	OFFSET=0,323;LENGTH=323,82;INTRON=;TRANSCRIPT=ENST00000614167.2;GENE_SYMBOL=RIBC2
+ENSG00000099949.21	0	CIRC-ENST00000642151.1-E1-E2	.	.	.	.	OFFSET=0,98;LENGTH=78,42;INTRON=;TRANSCRIPT=ENST00000642151.1;GENE_SYMBOL=LZTR1

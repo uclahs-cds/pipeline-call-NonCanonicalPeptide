@@ -1,11 +1,9 @@
-/* Module to call moPepGen parseREDItools */
+/* Module to call moPepGen parserFusionCatcher */
 include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
-    'transcript_id_column': '--transcript-id-column',
-    'min_coverage_alt': '--min-coverage-alt',
-    'min_frequency_alt': '--min-frequency-alt',
-    'min_coverage_dna': '--min-coverage-dna'
+    'max_common_mapping': '--max-common-mapping',
+    'min_spanning_unique': '--min-spanning-unique'
 ]
 
 FLAGS = [:]
@@ -14,7 +12,7 @@ def get_args_and_flags() {
     return [ARGS, FLAGS]
 }
 
-process parse_REDItools {
+process parse_FusionCatcher {
 
     container params.docker_image_moPepGen
 
@@ -40,12 +38,12 @@ process parse_REDItools {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_REDItools.gvf"
-    extra_args = generate_args(params, 'parseREDItools', ARGS, FLAGS)
+    output_path = "${params.sample_name}_${source}_FusionCatcher.gvf"
+    extra_args = generate_args(params, 'parseFusionCatcher', ARGS, FLAGS)
     """
     set -euo pipefail
 
-    moPepGen parseREDItools \
+    moPepGen parseFusionCatcher \
         --input-path ${input_file} \
         --index-dir ${index_dir} \
         --output-path ${output_path} \

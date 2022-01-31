@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 /*
     Generate command line args. Argument from `arg_list` will be added to the returned value if it
     is specified in the `par`
@@ -8,27 +10,34 @@
     output:
         A string of command line args.
 */
-def generate_args(par, arg_list) {
-    def args = ''
-    for (it in arg_list) {
-        if (par.containsKey(it)) {
-            args += " --${it.replace('_', '-')} ${par[it]}"
+def generate_args(Map par, String namespace, Map args, Map flags) {
+    def res = ''
+    if(!(par.containsKey(namespace))) return res
+    for (it in par[namespace].keySet()) {
+        if(it in args.keySet()) {
+            res += " ${args[it]} ${par[namespace][it]}"
+        } else if (it in flags.keySet() && par[namespace][it] == true) {
+            res += " ${args[it]}"
         }
     }
-    return args
+    return res
 }
 
 /* Log prelogue message */
 def print_prelogue() {
-    option_args = [
-        'min_est_j', 'transcript_id_column', 'min_read_number', 'min_fpb_circ',
-        'min_circ_score', 'miscleavage', 'min_mw', 'min_length', 'max_length'
-    ]
-    max_len = option_args.collect{it.size()}.max()
     options = ''
-    for (arg in option_args) {
-        if (params.containsKey(arg)) {
-            options += '\n' + ' ' * 12 + arg.padRight(max_len, ' ') + ": ${params[arg]}"
+    for (namespace in params.keySet()) {
+        if (namespace.contains('-')) continue
+        if (params[namespace] in Map) {
+            options += '\n' + ' ' * 12 + '- ' + namespace + ':'
+            data = [:]
+            for (key in params[namespace].keySet()) {
+                data[key] = params[namespace][key]
+            }
+            max_len = (data.keySet() as ArrayList).collect{it.size()}.max()
+            for (key in data.keySet()) {
+                options += '\n' + ' ' * 16 + key.padRight(max_len, ' ') + ": ${data[key]}"
+            }
         }
     }
     // Log info here
@@ -44,8 +53,9 @@ def print_prelogue() {
             version: ${workflow.manifest.version}
 
         - input:
+            sample_name : ${params.sample_name}
             input_csv   : ${params.input_csv}
-            genome_index: ${params.genome_index}
+            index_dir   : ${params.index_dir}
 
         - output:
             output_dir: ${params.output_dir}

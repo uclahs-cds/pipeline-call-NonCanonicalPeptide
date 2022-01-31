@@ -1,33 +1,51 @@
 /* Module to call moPepGen parseSTARFusion */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'min_est_j': '--min-est-j'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_STARFusion {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
+        mode: 'copy',
+        pattern: "*.gvf",
+        enabled: params.save_intermediate_files
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
+        file ".command.*"
 
     script:
-    output_prefix = "${sample_name}_${source}_STARFusion"
-    output_gvf = "${output_prefix}.gvf"
-    arg_list = ['min_est_j']
-    extra_args = generate_args(params, arg_list)
+    output_path = "${params.sample_name}_${source}_STARFusion.gvf"
+    extra_args = generate_args(params, 'parseSTARFusion', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseSTARFusion \
-        --fusion ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
         --source ${source} \
         ${extra_args}
     """

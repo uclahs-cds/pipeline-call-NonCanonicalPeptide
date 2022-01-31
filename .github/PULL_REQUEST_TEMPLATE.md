@@ -21,22 +21,9 @@ already, or do not wish to be listed. (*This acknowledgement is optional.*)
 
 - [ ] I have updated the version number in the `metadata.yaml` and `manifest` block of the `nextflow.config` file following [semver](https://semver.org/), or the version number has already been updated. (*Leave it unchecked if you are unsure about new version number and discuss it with the infrastructure team in this PR.*)
 
-- [ ] I have tested the pipeline on at least one A-mini sample.
+- [ ] All test cases have passed.
 
 <!--- Briefly describe the changes included in this pull request and the paths to the test cases below
  !--- starting with 'Closes #...' if appropriate --->
 
 Closes #...
-
-## Testing Results
-
-- Case 1
-    - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-    - input csv: <!-- path/to/input.csv -->
-    - config:    <!-- path/to/xxx.config -->
-    - output:    <!-- path/to/output -->
-- Case 2
-    - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-    - input csv: <!-- path/to/input.csv -->
-    - config:    <!-- path/to/xxx.config -->
-    - output:    <!-- path/to/output -->

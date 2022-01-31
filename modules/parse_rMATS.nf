@@ -1,14 +1,33 @@
 /* Module to call moPepGen parseRMATS */
+include { generate_args } from "${moduleDir}/common"
+
+ARGS = [
+    'min_ijc': '--min-ijc',
+    'min_sjc': '--min-sjc'
+]
+
+FLAGS = [:]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
 
 process parse_rMATS {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
+        mode: 'copy',
+        pattern: "*.gvf",
+        enabled: params.save_intermediate_files
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(se),
             file(a5ss),
@@ -16,25 +35,29 @@ process parse_rMATS {
             file(mxe),
             file(ri)
         )
-        file genome_index
+        file index_dir
 
     output:
-        file output_gvf
+        file output_path optional true
+        file ".command.*"
 
     script:
-    output_prefix = "${sample_name}_${source}_rMATS"
-    output_gvf = "${output_prefix}.gvf"
+    output_path = "${params.sample_name}_${source}_rMATs.gvf"
     input_args = ''
-    input_args += se.name == '_NO_FILE' ? " --skipped-exon ${se}" : ''
-    input_args += a5ss.name == '_NO_FILE' ? " --alternative-5-splicing ${a5ss}" : ''
-    input_args += a3ss.name == '_NO_FILE' ? " --alternative-3-splicing ${a3ss}" : ''
-    input_args += mxe.name == '_NO_FILE' ? " --mutually-exclusive-exons ${mxe}" : ''
-    input_args += ri.name == '_NO_FILE' ? " --retained-intron ${ri}" : ''
+    input_args += se.name == '_NO_FILE' ? " --se ${se}" : ''
+    input_args += a5ss.name == '_NO_FILE' ? " --a5ss ${a5ss}" : ''
+    input_args += a3ss.name == '_NO_FILE' ? " --a3ss ${a3ss}" : ''
+    input_args += mxe.name == '_NO_FILE' ? " --mxe ${mxe}" : ''
+    input_args += ri.name == '_NO_FILE' ? " --ri ${ri}" : ''
+    extra_args = generate_args(params, 'parseRMATS', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseRMATS \
         ${input_args} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
+        ${extra_args} \
         --source ${source}
     """
 }

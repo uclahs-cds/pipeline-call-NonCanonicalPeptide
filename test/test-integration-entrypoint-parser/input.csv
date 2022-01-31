@@ -1,0 +1,13 @@
+software,alt_splice_type,source,path
+VEP,,gSNP,test/files/vep_snp.txt
+VEP,,gINDEL,test/files/vep_indel.txt
+STAR-Fusion,,STARFusion,test/files/star_fusion.txt
+FusionCatcher,,FusionCatcher,test/files/fusion_catcher.txt
+Arriba,,Arriba,test/files/arriba.txt
+rMATs,SE,rMATs,test/files/rmats_se.txt
+rMATs,A5SS,rMATs,test/files/rmats_a5ss.txt
+rMATs,A3SS,rMATs,test/files/rmats_a3ss.txt
+rMATs,MXE,rMATs,test/files/rmats_mxe.txt
+rMATs,RI,rMATs,test/files/rmats_ri.txt
+CIRCexplorer,,circRNA,test/files/circexplorer.txt
+REDItools,,RNAEditing,test/files/reditools_annotated.txt

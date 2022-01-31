@@ -1,39 +1,58 @@
 /* Module to call moPepGen parseCIRCexplorer */
 include { generate_args } from "${moduleDir}/common"
 
+ARGS = [
+    'min_read_number': '--min-read-number',
+    'min_fpb_circ': '--min-fpb-circ',
+    'min_circ_score': '--min-circ-score',
+    'intron_start_range': '--intron-start-range',
+    'intron_end_range': '--intron-end-range'
+]
+
+FLAGS = [
+    'circexplorer3': '--circexplorer3'
+]
+
+def get_args_and_flags() {
+    return [ARGS, FLAGS]
+}
+
 process parse_CIRCexplorer {
 
     container params.docker_image_moPepGen
 
-    publishDir params.output_dir, mode: 'copy'
+    publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
+        mode: 'copy',
+        pattern: "*.gvf",
+        enabled: params.save_intermediate_files
+
+    publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
+        mode: 'copy',
+        pattern: '.command.*',
+        saveAs: { "log${file(it).name}" }
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
-        file(genome_index)
+        file(index_dir)
 
     output:
-        file output_gvf
+        file output_path optional true
+        file ".command.*"
 
     script:
-    output_prefix = "${sample_name}_${source}_CIRCexplorer"
-    output_gvf = "${output_prefix}.gvf"
-    arg_list = ['min_read_number', 'min_fpb_circ', 'min_circ_score']
-    extra_args = generate_args(params, arg_list)
-    if (params.containsKey('circexplorer3') and params.circexplorer3 == true) {
-        extra_args += " --circexplorer3"
-    }
+    output_path = "${params.sample_name}_${source}_CIRCexplorer.gvf"
+    extra_args = generate_args(params, 'parseCIRCexplorer', ARGS, FLAGS)
     """
+    set -euo pipefail
+
     moPepGen parseCIRCexplorer \
-        --vep-txt ${input_file} \
-        --index-dir ${genome_index} \
-        --output-prefix ${output_prefix} \
+        --input-path ${input_file} \
+        --index-dir ${index_dir} \
+        --output-path ${output_path} \
         --source ${source} \
-        --circexplorer3 ${params.circexplorer3} \
-        --min_read_number ${params.min_read_number} \
         ${extra_args}
     """
 }
