@@ -28,7 +28,6 @@ process parse_rMATS {
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(se),
             file(a5ss),
@@ -43,7 +42,7 @@ process parse_rMATS {
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_rMATs.gvf"
+    output_path = "${params.sample_name}_${source}_rMATs.gvf"
     input_args = ''
     input_args += se.name == '_NO_FILE' ? " --se ${se}" : ''
     input_args += a5ss.name == '_NO_FILE' ? " --a5ss ${a5ss}" : ''

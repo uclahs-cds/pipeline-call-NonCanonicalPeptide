@@ -29,7 +29,6 @@ process parse_Arriba {
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
@@ -40,7 +39,7 @@ process parse_Arriba {
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_Arriba.gvf"
+    output_path = "${params.sample_name}_${source}_Arriba.gvf"
     extra_args = generate_args(params, 'parseArriba', ARGS, FLAGS)
     """
     set -euo pipefail

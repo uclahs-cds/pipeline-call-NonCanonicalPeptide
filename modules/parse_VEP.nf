@@ -25,7 +25,6 @@ process parse_VEP {
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
@@ -36,7 +35,7 @@ process parse_VEP {
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_VEP.gvf"
+    output_path = "${params.sample_name}_${source}_VEP.gvf"
     args = generate_args(params, 'parseVEP', ARGS, FLAGS)
     """
     set -euo pipefail

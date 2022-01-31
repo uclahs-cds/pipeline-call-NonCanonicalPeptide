@@ -28,7 +28,6 @@ process parse_FusionCatcher {
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
@@ -39,7 +38,7 @@ process parse_FusionCatcher {
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_FusionCatcher.gvf"
+    output_path = "${params.sample_name}_${source}_FusionCatcher.gvf"
     extra_args = generate_args(params, 'parseFusionCatcher', ARGS, FLAGS)
     """
     set -euo pipefail

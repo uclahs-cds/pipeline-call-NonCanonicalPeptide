@@ -33,7 +33,6 @@ process parse_CIRCexplorer {
 
     input:
         tuple(
-            val(sample_name),
             val(source),
             file(input_file)
         )
@@ -44,7 +43,7 @@ process parse_CIRCexplorer {
         file ".command.*"
 
     script:
-    output_path = "${sample_name}_${source}_CIRCexplorer.gvf"
+    output_path = "${params.sample_name}_${source}_CIRCexplorer.gvf"
     extra_args = generate_args(params, 'parseCIRCexplorer', ARGS, FLAGS)
     """
     set -euo pipefail

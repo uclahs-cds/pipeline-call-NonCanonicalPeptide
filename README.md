@@ -49,15 +49,16 @@ nextflow run path/to/pipeline-call-NoncanonicalPeptide/main.nf -c sample.config
 
 ## Input CSV
 
-The input CSV file must contain the fields listed below. See example [here](input/../inputs/input.csv)
+The input CSV file must contain the fields listed below. See example [here](inputs/input-parsers.csv)
 
 | Field name | Required | Description |
 | ---------- | -------- | ----------- |
-| sample_name | yes | Sample name. |
 | software | yes | The software used to call this variant. Must come from VEP, STAR-Fusion, rMATS, CIRCexplorer, and REDItools. |
 | alt_splic_type | no | Alternative splicing type. Required for rMATS. Must come from SE, A5SS, A3SS, MXE, and RI. |
 | source | yes | Source of the variant. For example, gSNP, sSNV, Fusion, circRNA, etc |
 | path | yes | Path to the variant file. |
+
+Directly input of GVF files are also supported, which will skip all `moPepGen` parsers. In this case, the input CSV should contain only one column being the path to the GVF files. See [here](inputs/input-gvf.csv) for example.
 
 ---
 
@@ -79,7 +80,7 @@ The input CSV file must contain the fields listed below. See example [here](inpu
 
 ### Tool specific namespaces
 
-The variables below are set under tool specific namespaces. See [this](test/test-integration-entrypoint-parser/test.config) example config to see how they are set. If the too is not used, the namespace does not needs to be set. For example, if REDItools results is not included in the input CSV, `moPepGen arseREDItools` won't be called, so the `parseREDItools` namespace does not need to be present in the config file.
+The variables below are set under tool specific namespaces. See [this](test/test-integration-entrypoint-parser/test.config) example config to see how they are set. If the tool is not used, the namespace does not needs to be set. For example, if REDItools results is not included in the input CSV, `moPepGen parseREDItools` won't be called, so the `parseREDItools` namespace does not need to be present in the config file.
 
 #### parseREDItools
 
