@@ -16,10 +16,9 @@ process parse_FusionCatcher {
 
     container params.docker_image_moPepGen
 
-    publishDir "${params.intermediate_file_dir}/${task.process.replace(':', '/')}/",
+    publishDir params.final_output_dir,
         mode: 'copy',
-        pattern: "*.gvf",
-        enabled: params.save_intermediate_files
+        pattern: "*.gvf"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',
