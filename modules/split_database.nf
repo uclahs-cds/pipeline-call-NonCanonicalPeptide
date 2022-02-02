@@ -22,7 +22,7 @@ process split_database {
 
     publishDir params.final_output_dir,
         mode: 'copy',
-        pattern: { output_dir }
+        pattern: "split"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',

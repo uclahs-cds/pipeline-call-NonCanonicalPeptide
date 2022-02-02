@@ -1,6 +1,11 @@
-path
-test/files/vep_gSNP.gvf
-test/files/vep_gINDEL.gvf
-test/files/reditools.gvf
-test/files/circ_rna.gvf
-test/files/fusion.gvf
+sample_name,path
+UCLA0001,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gSNP.gvf
+UCLA0001,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gINDEL.gvf
+UCLA0001,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/reditools.gvf
+UCLA0001,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/circ_rna.gvf
+UCLA0001,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/fusion.gvf
+UCLA0002,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gSNP.gvf
+UCLA0002,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gINDEL.gvf
+UCLA0002,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/reditools.gvf
+UCLA0002,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/circ_rna.gvf
+UCLA0002,/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/fusion.gvf

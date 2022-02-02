@@ -24,7 +24,7 @@ process filter_fasta {
 
     publishDir params.final_output_dir,
         mode: 'copy',
-        pattern: { output_dir }
+        pattern: "*.fasta"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',
