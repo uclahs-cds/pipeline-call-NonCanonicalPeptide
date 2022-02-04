@@ -12,6 +12,7 @@ include { parse_rMATS } from './modules/parse_rMATS'
 include { call_variant } from './modules/call_variant'
 include { split_database } from './modules/split_database'
 include { filter_fasta } from './modules/filter_fasta.nf'
+include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 
 print_prelogue()
 
@@ -87,7 +88,9 @@ workflow {
          parse_rMATS.out[0]
       ).collect()
    } else {
-      gvf_files = Channel.fromPath(params.input_csv).splitCsv(header:true).map { file(it.path) }.collect()
+      ich = Channel.fromPath(params.input_csv).splitCsv(header:true).map { file(it.path) }
+      resolve_filename_conflict(ich)
+      gvf_files = resolve_filename_conflict.out.collect()
    }
 
    call_variant(gvf_files, file(params.index_dir))
