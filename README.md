@@ -27,7 +27,7 @@ This pipeline takes genomic and transcriptomic variation data such as SNP, INDEL
 
 1. Create sample specifc config file using the [template](config/template.config)
 
-2. Create a sample specific input CSV file using the [tempalte](input/../inputs/input.csv)
+2. Create a sample specific input CSV file using [this](inputs/input-gvf.csv) template when using GVF as entrypoint or [this](inputs/input-parsers.csv) template when using raw variant files.
 
 3. To run on UCSL-CDS' Azure clusters, see the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit it. For general usage, launch with the comamnd below:
 
