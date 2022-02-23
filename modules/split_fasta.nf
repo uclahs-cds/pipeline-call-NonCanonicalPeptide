@@ -1,4 +1,4 @@
-/* module for splitting database */
+/* module for splitting fasta */
 include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
@@ -16,7 +16,7 @@ def get_args_and_flags() {
     return [ARGS, FLAGS]
 }
 
-process split_database {
+process split_fasta {
 
     container params.docker_image_moPepGen
 
@@ -47,7 +47,7 @@ process split_database {
     """
     set -euo pipefail
 
-    moPepGen splitDatabase \
+    moPepGen splitFasta \
         --gvf ${gvfs} \
         --variant-peptides ${variant_fasta} \
         ${noncoding_arg} \

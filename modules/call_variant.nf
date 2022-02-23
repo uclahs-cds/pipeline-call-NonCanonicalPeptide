@@ -41,7 +41,7 @@ process call_variant {
         file ".command.*"
 
     script:
-    output_fasta = "${params.sample_name}-variantPeptides.fasta"
+    output_fasta = "${params.sample_name}_variant_peptides.fasta"
     extra_args = generate_args(params, 'callVariant', ARGS, FLAGS)
     """
     set -euo pipefail
