@@ -10,7 +10,7 @@ include { parse_REDItools } from './modules/parse_REDItools'
 include { parse_CIRCexplorer } from './modules/parse_CIRCexplorer'
 include { parse_rMATS } from './modules/parse_rMATS'
 include { call_variant } from './modules/call_variant'
-include { split_database } from './modules/split_database'
+include { split_fasta } from './modules/split_fasta'
 include { filter_fasta } from './modules/filter_fasta.nf'
 include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 
@@ -106,11 +106,11 @@ workflow {
       variant_fasta = call_variant.out[0]
    }
 
-   if (params.split_database) {
-      split_database(
+   if (params.split_fasta) {
+      split_fasta(
          gvf_files,
          variant_fasta,
-         file(params.noncoding_fasta),
+         file(params.noncoding_peptides),
          file(params.index_dir)
       )
    }
