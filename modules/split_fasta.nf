@@ -32,7 +32,7 @@ process split_fasta {
     input:
         file gvfs
         file variant_fasta
-        file noncoding_fasta
+        file noncoding_peptides
         file index_dir
 
     output:

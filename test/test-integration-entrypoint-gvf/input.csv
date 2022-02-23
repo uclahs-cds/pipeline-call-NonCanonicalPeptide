@@ -1,6 +1,6 @@
 path
-test/files/vep_gSNP.gvf
-test/files/vep_gINDEL.gvf
-test/files/reditools.gvf
-test/files/circ_rna.gvf
-test/files/fusion.gvf
+/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/vep_gSNP.gvf
+/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/vep_gINDEL.gvf
+/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/reditools.gvf
+/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/circ_rna.gvf
+/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/fusion.gvf
