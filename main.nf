@@ -110,7 +110,7 @@ workflow {
       split_fasta(
          gvf_files,
          variant_fasta,
-         file(params.noncoding_fasta),
+         file(params.noncoding_peptides),
          file(params.index_dir)
       )
    }

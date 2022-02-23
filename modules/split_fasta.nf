@@ -42,7 +42,7 @@ process split_fasta {
     script:
     output_dir = 'split'
     output_prefix = "${output_dir}/${params.sample_name}"
-    noncoding_arg = noncoding_fasta.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_fasta}"
+    noncoding_arg = noncoding_peptides.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_peptides}"
     extra_args = generate_args(params, 'splitDatabase', ARGS, FLAGS)
     """
     set -euo pipefail
