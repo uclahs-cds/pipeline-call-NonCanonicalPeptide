@@ -15,6 +15,7 @@
       - [callVariant](#callvariant)
       - [filterFasta](#filterfasta)
       - [splitFasta](#splitfasta)
+      - [decoyFasta](#decoyfasta)
   - [Outputs](#outputs)
   - [License](#license)
 ## Overview
@@ -154,6 +155,20 @@ The variables below are set under tool specific namespaces. See [this](test/test
 | `max_source_groups` | no | Maximal number of different source groups to be separate intoindividual database FASTA files. Defaults to 1 (default: 1) |
 | `additional_split` | no | For peptides that were not already split into FASTAs up tomax_source_groups, those involving the following source will be splitinto additional FASTAs with decreasing priority (default: None) |
 
+#### decoyFasta
+
+| Field name | Required | Description |
+| ---------- | -------- | ----------- |
+| `decoy_string` | no | The decoy string that is combined with the FASTA header for decoy sequences. `str` Default: `DECOY_` |
+| `decoy_string_position` | no | Should the decoy string be placed at the start or end of FASTA headers? `str` Default: 'prefix', Choices: ['prefix', 'suffix'] |
+| `method` | no | Method to be used to generate the decoy sequences from target sequences. `str`. Default: 'reverse'. Choices: ['reverse', 'shuffle'] |
+| `non_shuffle_pattern` | no | Residues to not shuffle and keep at the original position. Separate by common (e.g. "K,R") str |
+| `shuffle_max_attempts` | no | Maximal attempts to shuffle a sequence to avoid any identical decoy sequence. `int` Default: 30 |
+| `seed` | no | Random seed number. `int` |
+| `order` | no | Order of target and decoy sequences to write in the output FASTA. `str` Default: 'juxtaposed'. Choices: ['juxtaposed', 'target_first', 'decoy_first'] |
+| `keep_peptide_nterm` | Whether to keep the peptide N terminus constant. `str`. Default: 'true' Choices: ['true', 'false'] |
+| `keep_peptide_cterm` | no | Whether to keep the peptide C terminus constant. `str` Default: 'true'. Choices: ['true', 'false'] |
+
 ---
 
 ## Outputs
@@ -162,7 +177,9 @@ The variables below are set under tool specific namespaces. See [this](test/test
 | ------------ | ------------------------ |
 | <sample_name>_<source>_<software>.gvf | Intermediate GVF files. |
 | <sample_name>_variant_peptides.fasta | The complete variant peptide FASTA file. |
-| split/<sample_name>_<source>_<software>.fasta | Split database FASTA files can be used for multi-step library search and FDR calculation. |
+| split/<sample_name>_<source>.fasta | Split database FASTA files can be used for multi-step library search and FDR calculation. |
+| encode/<sample_name>_<source>.{fasta,fasta.dict} | Encoded database FASTA files with header being replaced with UUID. |
+| decoy/<sample_name>_<source>.{fasta,fasta.dict} | Decoy database FASTA files with either reversed or shuffled sequences. |
 
 ---
 
