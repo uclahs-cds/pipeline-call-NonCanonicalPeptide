@@ -122,7 +122,7 @@ workflow {
 
    if (params.encode_fasta) {
       encode_fasta(splitted_fasta_file)
-      encoded_fasta_file= encode_fasta.out[0]
+      encoded_fasta_file = encode_fasta.out[0]
    } else {
       encoded_fasta_file = splitted_fasta_file
    }

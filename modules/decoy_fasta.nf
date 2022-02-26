@@ -1,4 +1,4 @@
-/* module for generating decooy fasta */
+/* module for generating decoy fasta */
 include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
@@ -8,13 +8,12 @@ ARGS = [
     'seed': '--seed',
     'order': '--order',
     'decoy_string': '--decoy-string',
-    'decoy_string_position': '--decoy-string-position'
-]
-
-FLAGS = [
+    'decoy_string_position': '--decoy-string-position',
     'keep_peptide_nterm': '--keep-peptide-ntnerm',
     'keep_peptide_cterm': '--keep-peptide-cterm'
 ]
+
+FLAGS = [:]
 
 process decoy_fasta {
 
@@ -38,7 +37,7 @@ process decoy_fasta {
 
     script:
     output_fasta = "${input_fasta.baseName}_decoy.fasta"
-    extra_args = generate_args(params, 'filterFasta', ARGS, FLAGS)
+    extra_args = generate_args(params, 'decoyFasta', ARGS, FLAGS)
     """
     set -euo pipefail
 
