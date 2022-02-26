@@ -37,6 +37,7 @@ process split_fasta {
 
     output:
         file output_dir
+        file "${output_dir}/*.fasta"
         file ".command.*"
 
     script:

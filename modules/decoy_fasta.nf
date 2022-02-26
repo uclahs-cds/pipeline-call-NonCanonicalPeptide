@@ -1,28 +1,26 @@
-/* module for filter fasta */
+/* module for generating decooy fasta */
 include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
-    'skip_lines': '--skip-lines',
-    'delimiter ': '--delimiter',
-    'tx_id_col': '--tx-id-col',
-    'quant_col': '--quant-col',
-    'quant_cutoff': '--quant-cutoff'
+    'method': '--method',
+    'non_shuffle_pattern ': '--non-shuffle-pattern',
+    'shuffle_max_attempts': '--shuffle-max-attempts',
+    'seed': '--seed',
+    'order': '--order',
+    'decoy_string': '--decoy-string',
+    'decoy_string_position': '--decoy-string-position'
 ]
 
 FLAGS = [
-    'keep_all_coding': '--keep-all-coding',
-    'keep_all_noncoding': '--keep-all-noncoding'
+    'keep_peptide_nterm': '--keep-peptide-ntnerm',
+    'keep_peptide_cterm': '--keep-peptide-cterm'
 ]
 
-def get_args_and_flags() {
-    return [ARGS, FLAGS]
-}
-
-process filter_fasta {
+process decoy_fasta {
 
     container params.docker_image_moPepGen
 
-    publishDir params.final_output_dir,
+    publishDir "${params.final_output_dir}/decoy",
         mode: 'copy',
         pattern: "*.fasta"
 
@@ -33,24 +31,20 @@ process filter_fasta {
 
     input:
         file input_fasta
-        file exprs_table
-        file index_dir
 
     output:
         file output_fasta
         file ".command.*"
 
     script:
-    output_fasta = "${input_fasta.baseName}_filtered.fasta"
+    output_fasta = "${input_fasta.baseName}_decoy.fasta"
     extra_args = generate_args(params, 'filterFasta', ARGS, FLAGS)
     """
     set -euo pipefail
 
-    moPepGen filterFasta \\
+    moPepGen decoyFasta \\
         --input-path ${input_fasta} \\
         --output-path ${output_fasta} \\
-        --exprs-table ${exprs_table} \\
-        --index-dir ${index_dir} \\
         ${extra_args}
     """
 }
