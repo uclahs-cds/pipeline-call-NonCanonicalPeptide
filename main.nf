@@ -11,7 +11,9 @@ include { parse_CIRCexplorer } from './modules/parse_CIRCexplorer'
 include { parse_rMATS } from './modules/parse_rMATS'
 include { call_variant } from './modules/call_variant'
 include { split_fasta } from './modules/split_fasta'
-include { filter_fasta } from './modules/filter_fasta.nf'
+include { filter_fasta } from './modules/filter_fasta'
+include { encode_fasta } from './modules/encode_fasta'
+include { decoy_fasta } from './modules/decoy_fasta'
 include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 
 print_prelogue()
@@ -113,5 +115,19 @@ workflow {
          file(params.noncoding_peptides),
          file(params.index_dir)
       )
+      splitted_fasta_file = split_fasta.out[1].flatten()
+   } else {
+      splitted_fasta_file = variant_fasta
+   }
+
+   if (params.encode_fasta) {
+      encode_fasta(splitted_fasta_file)
+      encoded_fasta_file = encode_fasta.out[0]
+   } else {
+      encoded_fasta_file = splitted_fasta_file
+   }
+
+   if (params.decoy_fasta) {
+      decoy_fasta(encoded_fasta_file)
    }
 }
