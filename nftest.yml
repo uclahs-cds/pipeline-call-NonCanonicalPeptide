@@ -21,15 +21,22 @@ cases:
     verbose: true
 
   - name: test-integration-no-split
-    message: Integration test with with splitFasta off
+    message: Integration test with splitFasta off
     nf_script: main.nf
     nf_config: test/test-integration-no-split/test.config
-    skip: false
+    skip: true
     verbose: true
 
   - name: test-integration-no-encode
-    message: Integration test with with encodeFasta off
+    message: Integration test with encodeFasta off
     nf_script: main.nf
     nf_config: test/test-integration-no-encode/test.config
     skip: true
+    verbose: true
+
+  - name: test-integration-entrypoint-fasta
+    message: Integration test with entrypoint of variant fasta
+    nf_script: main.nf
+    nf_config: test/test-integration-entrypoint-fasta/test.config
+    skip: false
     verbose: true
