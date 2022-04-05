@@ -108,7 +108,7 @@ workflow {
       }
    }
 
-   summarize_fasta_pre(gvf_files, variant_fasta, file(params.noncoding_peptides), file(params.index_dir), 'PreFilter')
+   summarize_fasta_pre(gvf_files, variant_fasta, file(params.noncoding_peptides), file(params.index_dir))
 
    if (params.filter_fasta) {
       filter_fasta(
@@ -117,7 +117,7 @@ workflow {
          file(params.index_dir)
       )
       variant_fasta_filtered = filter_fasta.out[0]
-      summarize_fasta_post(gvf_files, variant_fasta_filtered, file(params.noncoding_peptides), file(params.index_dir), 'PostFilter')
+      summarize_fasta_post(gvf_files, variant_fasta_filtered, file(params.noncoding_peptides), file(params.index_dir))
    } else {
       variant_fasta_filtered = variant_fasta
    }

@@ -32,14 +32,13 @@ process summarize_fasta {
         file variant_fasta
         file noncoding_peptides
         file index_dir
-        val indicator
 
     output:
         file output_summary
         file ".command.*"
 
     script:
-    output_summary = "${variant_fasta.baseName}_${indicator}_summary.txt"
+    output_summary = "${variant_fasta.baseName}_summary.txt"
     noncoding_arg = noncoding_peptides.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_peptides}"
     extra_args = generate_args(params, 'splitFasta', ARGS, FLAGS)
     """
