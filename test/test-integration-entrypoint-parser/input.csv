@@ -1,9 +1,9 @@
 software,alt_splice_type,source,path
 VEP,,gSNP,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/vep_snp.txt
 VEP,,gINDEL,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/vep_indel.txt
-STAR-Fusion,,STARFusion,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/star_fusion.txt
-FusionCatcher,,FusionCatcher,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/fusion_catcher.txt
-Arriba,,Arriba,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/arriba.txt
+STAR-Fusion,,Fusion,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/star_fusion.txt
+FusionCatcher,,Fusion,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/fusion_catcher.txt
+Arriba,,Fusion,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/arriba.txt
 rMATs,SE,rMATs,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/rmats_se.txt
 rMATs,A5SS,rMATs,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/rmats_a5ss.txt
 rMATs,A3SS,rMATs,/hot/pipeline/development/slurm/call-NonCanonicalPeptide/unreleased/data/rmats_a3ss.txt
