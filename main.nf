@@ -89,35 +89,43 @@ workflow {
          parse_CIRCexplorer.out[0],
          parse_rMATS.out[0]
       ).collect()
+      call_variant(gvf_files, file(params.index_dir))
+      variant_fasta = call_variant.out[0]
+
    } else {
       ich = Channel.fromPath(params.input_csv).splitCsv(header:true).map { file(it.path) }
       resolve_filename_conflict(ich)
       gvf_files = resolve_filename_conflict.out.collect()
-   }
 
-   call_variant(gvf_files, file(params.index_dir))
+      if (params.entrypoint == 'fasta') {
+         variant_fasta = Channel.fromPath(params.variant_fasta)
+      } else {
+         call_variant(gvf_files, file(params.index_dir))
+         variant_fasta = call_variant.out[0]
+      }
+   }
 
    if (params.filter_fasta) {
       filter_fasta(
-         call_variant.out[0],
+         variant_fasta,
          file(params.exprs_table),
          file(params.index_dir)
       )
-      variant_fasta = filter_fasta.out[0]
+      variant_fasta_filtered = filter_fasta.out[0]
    } else {
-      variant_fasta = call_variant.out[0]
+      variant_fasta_filtered = variant_fasta
    }
 
    if (params.split_fasta) {
       split_fasta(
          gvf_files,
-         variant_fasta,
+         variant_fasta_filtered,
          file(params.noncoding_peptides),
          file(params.index_dir)
       )
       splitted_fasta_file = split_fasta.out[1].flatten()
    } else {
-      splitted_fasta_file = variant_fasta
+      splitted_fasta_file = variant_fasta_filtered
    }
 
    if (params.encode_fasta) {

@@ -4,7 +4,10 @@
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
+  - [Entrypoints](#entrypoints)
   - [Input CSV](#input-csv)
+    - [Entrypoint: 'parser'](#entrypoint-parser)
+    - [Entrypoint: 'gvf' or 'fasta'](#entrypoint-gvf-or-fasta)
   - [Config](#config)
     - [Tool specific namespaces](#tool-specific-namespaces)
       - [parseREDItools](#parsereditools)
@@ -28,7 +31,7 @@ This pipeline takes genomic and transcriptomic variation data such as SNP, INDEL
 
 1. Create sample specifc config file using the [template](config/template.config)
 
-2. Create a sample specific input CSV file using [this](inputs/input-gvf.csv) template when using GVF as entrypoint or [this](inputs/input-parsers.csv) template when using raw variant files.
+2. Create a sample specific input CSV file using [this](inputs/input-gvf.csv) template when using GVF or variant FASTA as entrypoint or [this](inputs/input-parsers.csv) template when using raw variant files.
 
 3. To run on UCSL-CDS' Azure clusters, see the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit it. For general usage, launch with the comamnd below:
 
@@ -46,11 +49,17 @@ nextflow run path/to/pipeline-call-NoncanonicalPeptide/main.nf -c sample.config
 
 ![flow-chart](img/diagram.drawio.svg?raw=true)
 
+## Entrypoints
+
+This pipeline has three entrypoints, 'parser', 'gvf', and 'fasta'. When using 'parser' entrypoint, the raw files from variant callers are expected and corresponding moPepGen parsers are called before running `callVariant`. When using 'gvf' entrypoint, the moPepGen GVF files are expected and moPepGen `callVariant` is called directly on them. When using 'fasta' entrypoint, not only the moPepGen GVF files are expected from the `input_csv`, but also variant peptide FASTA file needs to be input to the pipeline. It then skips `callVariant` and only the downstream `filterFasta`, `splitFasta`, `encodeFasta` and `summarizeFasta` are called.
+
 ---
 
 ## Input CSV
 
-The input CSV file must contain the fields listed below. See example [here](inputs/input-parsers.csv)
+### Entrypoint: 'parser'
+
+The fields required for the input CSV files are listed below. See example [here](inputs/input-parsers.csv).
 
 | Field name | Required | Description |
 | ---------- | -------- | ----------- |
@@ -58,6 +67,8 @@ The input CSV file must contain the fields listed below. See example [here](inpu
 | alt_splic_type | no | Alternative splicing type. Required for rMATS. Must come from SE, A5SS, A3SS, MXE, and RI. |
 | source | yes | Source of the variant. For example, gSNP, sSNV, Fusion, circRNA, etc |
 | path | yes | Path to the variant file. |
+
+### Entrypoint: 'gvf' or 'fasta'
 
 Directly input of GVF files are also supported, which will skip all `moPepGen` parsers. In this case, the input CSV should contain only one column being the path to the GVF files. See [here](inputs/input-gvf.csv) for example.
 
@@ -74,6 +85,7 @@ Directly input of GVF files are also supported, which will skip all `moPepGen` p
 | `ucla_cds` | no | Whether to use UCLA-CDS' cluster specific configuration. Defaults to `true`. |
 | `save_intermediate_files` | no | Whether to save intermediate files. Defaults to `false`. |
 | `entrypoint` | no | When set to `parser`, it expects to receive raw variant files. When set to `gvf`, it expects to receive GVF files that are already parsed by moPepGen's parsers. |
+| `variant_fasta` | no | Path to the variant peptide FASTA file. Only need when using 'fasta' entrypoint. |
 | `filter_fasta` | no | Whether to run `filterFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `split_fasta` | no | Whether to run `splitFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `exprs_table` | no | Gene expression table used to filter variant peptide FASTA. Required when `filter_fasta` is `true`. |

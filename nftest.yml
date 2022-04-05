@@ -10,26 +10,33 @@ cases:
     message: Integration test with entypoint of parser
     nf_script: main.nf
     nf_config: test/test-integration-entrypoint-parser/test.config
-    skip: true
+    skip: false
     verbose: true
 
   - name: test-integration-entrypoint-gvf
     message: Integration test with entypoint of gvf
     nf_script: main.nf
     nf_config: test/test-integration-entrypoint-gvf/test.config
-    skip: true
+    skip: false
     verbose: true
 
   - name: test-integration-no-split
-    message: Integration test with with splitFasta off
+    message: Integration test with splitFasta off
     nf_script: main.nf
     nf_config: test/test-integration-no-split/test.config
     skip: false
     verbose: true
 
   - name: test-integration-no-encode
-    message: Integration test with with encodeFasta off
+    message: Integration test with encodeFasta off
     nf_script: main.nf
     nf_config: test/test-integration-no-encode/test.config
-    skip: true
+    skip: false
+    verbose: true
+
+  - name: test-integration-entrypoint-fasta
+    message: Integration test with entrypoint of variant fasta
+    nf_script: main.nf
+    nf_config: test/test-integration-entrypoint-fasta/test.config
+    skip: false
     verbose: true
