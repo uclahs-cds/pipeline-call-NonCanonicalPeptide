@@ -7,7 +7,7 @@
   - [Entrypoints](#entrypoints)
   - [Input CSV](#input-csv)
     - [Entrypoint: 'parser'](#entrypoint-parser)
-    - [Entrypoint: 'gvf' or 'fasta](#entrypoint-gvf-or-fasta)
+    - [Entrypoint: 'gvf' or 'fasta'](#entrypoint-gvf-or-fasta)
   - [Config](#config)
     - [Tool specific namespaces](#tool-specific-namespaces)
       - [parseREDItools](#parsereditools)
@@ -67,9 +67,8 @@ The fields required for the input CSV files are listed below. See example [here]
 | alt_splic_type | no | Alternative splicing type. Required for rMATS. Must come from SE, A5SS, A3SS, MXE, and RI. |
 | source | yes | Source of the variant. For example, gSNP, sSNV, Fusion, circRNA, etc |
 | path | yes | Path to the variant file. |
-| variant_fasta | no | Path to the variant peptide FASTA file. Only need when using 'fasta' entrypoint. |
 
-### Entrypoint: 'gvf' or 'fasta
+### Entrypoint: 'gvf' or 'fasta'
 
 Directly input of GVF files are also supported, which will skip all `moPepGen` parsers. In this case, the input CSV should contain only one column being the path to the GVF files. See [here](inputs/input-gvf.csv) for example.
 
@@ -86,6 +85,7 @@ Directly input of GVF files are also supported, which will skip all `moPepGen` p
 | `ucla_cds` | no | Whether to use UCLA-CDS' cluster specific configuration. Defaults to `true`. |
 | `save_intermediate_files` | no | Whether to save intermediate files. Defaults to `false`. |
 | `entrypoint` | no | When set to `parser`, it expects to receive raw variant files. When set to `gvf`, it expects to receive GVF files that are already parsed by moPepGen's parsers. |
+| `variant_fasta` | no | Path to the variant peptide FASTA file. Only need when using 'fasta' entrypoint. |
 | `filter_fasta` | no | Whether to run `filterFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `split_fasta` | no | Whether to run `splitFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `exprs_table` | no | Gene expression table used to filter variant peptide FASTA. Required when `filter_fasta` is `true`. |
