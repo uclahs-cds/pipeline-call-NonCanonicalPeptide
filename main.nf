@@ -14,6 +14,7 @@ include { split_fasta } from './modules/split_fasta'
 include { filter_fasta } from './modules/filter_fasta'
 include { encode_fasta } from './modules/encode_fasta'
 include { decoy_fasta } from './modules/decoy_fasta'
+include { summarize_fasta as summarize_fasta_pre; summarize_fasta as summarize_fasta_post } from './modules/summarize_fasta'
 include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 
 print_prelogue()
@@ -85,6 +86,8 @@ workflow {
       gvf_files = Channel.from().mix(
          parse_VEP.out[0],
          parse_STARFusion.out[0],
+         parse_FusionCatcher.out[0],
+         parse_Arriba.out[0],
          parse_REDItools.out[0],
          parse_CIRCexplorer.out[0],
          parse_rMATS.out[0]
@@ -105,6 +108,8 @@ workflow {
       }
    }
 
+   summarize_fasta_pre(gvf_files, variant_fasta, file(params.noncoding_peptides), file(params.index_dir))
+
    if (params.filter_fasta) {
       filter_fasta(
          variant_fasta,
@@ -112,6 +117,7 @@ workflow {
          file(params.index_dir)
       )
       variant_fasta_filtered = filter_fasta.out[0]
+      summarize_fasta_post(gvf_files, variant_fasta_filtered, file(params.noncoding_peptides), file(params.index_dir))
    } else {
       variant_fasta_filtered = variant_fasta
    }
