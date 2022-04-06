@@ -86,6 +86,7 @@ Directly input of GVF files are also supported, which will skip all `moPepGen` p
 | `save_intermediate_files` | no | Whether to save intermediate files. Defaults to `false`. |
 | `entrypoint` | no | When set to `parser`, it expects to receive raw variant files. When set to `gvf`, it expects to receive GVF files that are already parsed by moPepGen's parsers. |
 | `variant_fasta` | no | Path to the variant peptide FASTA file. Only need when using 'fasta' entrypoint. |
+| `noncoding_fasta` | no | Path to the noncoding peptides FASTA file output by `moPepGen callNoncoding`. |
 | `filter_fasta` | no | Whether to run `filterFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `split_fasta` | no | Whether to run `splitFasta` on the variant peptide FASTA called by `callVariant`. Defaults to `false`. |
 | `exprs_table` | no | Gene expression table used to filter variant peptide FASTA. Required when `filter_fasta` is `true`. |
@@ -147,6 +148,8 @@ The variables below are set under tool specific namespaces. See [this](test/test
 | `max_length` | no | The maximum length of non-canonical peptides, inclusive. (default: 25) |
 
 #### filterFasta
+
+Filter fasta can run separately for variant and noncoding peptide FASTA, so this section can take up to two namespaces, named `variant_peptides` and `noncoding_peptides`. The parameters allowed in each namespace is listed below. You can set `quant_cutoff` for variant peptides as 200 and for noncoding peptides as 100. If either namespace is not defined, the corresponding filter won't run.
 
 | Field name | Required | Description |
 | ---------- | -------- | ----------- |
