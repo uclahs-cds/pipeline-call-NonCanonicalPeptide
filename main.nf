@@ -11,7 +11,7 @@ include { parse_CIRCexplorer } from './modules/parse_CIRCexplorer'
 include { parse_rMATS } from './modules/parse_rMATS'
 include { call_variant } from './modules/call_variant'
 include { split_fasta } from './modules/split_fasta'
-include { filter_fasta } from './modules/filter_fasta'
+include { filter_fasta as filter_fasta_variant; filter_fasta as filter_fasta_noncoding } from './modules/filter_fasta'
 include { encode_fasta } from './modules/encode_fasta'
 include { decoy_fasta } from './modules/decoy_fasta'
 include { summarize_fasta as summarize_fasta_pre; summarize_fasta as summarize_fasta_post } from './modules/summarize_fasta'
@@ -110,14 +110,27 @@ workflow {
 
    summarize_fasta_pre(gvf_files, variant_fasta, file(params.noncoding_peptides), file(params.index_dir))
 
-   if (params.filter_fasta) {
-      filter_fasta(
+   if (params.filter_fasta_noncoding) {
+      filter_fasta_noncoding (
+         file(params.noncoding_peptides),
+         file(params.exprs_table),
+         file(params.index_dir),
+         'noncoding_peptides'
+      )
+      noncoding_peptides_filtered = filter_fasta_noncoding.out[0]
+   } else {
+      noncoding_peptides_filtered = Channel.fromPath(params.noncoding_peptides)
+   }
+
+   if (params.filter_fasta_variant) {
+      filter_fasta_variant(
          variant_fasta,
          file(params.exprs_table),
-         file(params.index_dir)
+         file(params.index_dir),
+         'variant_peptides'
       )
-      variant_fasta_filtered = filter_fasta.out[0]
-      summarize_fasta_post(gvf_files, variant_fasta_filtered, file(params.noncoding_peptides), file(params.index_dir))
+      variant_fasta_filtered = filter_fasta_variant.out[0]
+      summarize_fasta_post(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
    } else {
       variant_fasta_filtered = variant_fasta
    }
@@ -126,7 +139,7 @@ workflow {
       split_fasta(
          gvf_files,
          variant_fasta_filtered,
-         file(params.noncoding_peptides),
+         noncoding_peptides_filtered,
          file(params.index_dir)
       )
       splitted_fasta_file = split_fasta.out[1].flatten()

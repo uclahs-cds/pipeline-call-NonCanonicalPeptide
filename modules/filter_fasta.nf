@@ -35,14 +35,15 @@ process filter_fasta {
         file input_fasta
         file exprs_table
         file index_dir
+        val indicator
 
     output:
         file output_fasta
         file ".command.*"
 
     script:
-    output_fasta = "${input_fasta.baseName}_filtered.fasta"
-    extra_args = generate_args(params, 'filterFasta', ARGS, FLAGS)
+    output_fasta = "${input_fasta.baseName}_${indicator}_filtered.fasta"
+    extra_args = generate_args(params['filterFasta'], indicator, ARGS, FLAGS)
     """
     set -euo pipefail
 
