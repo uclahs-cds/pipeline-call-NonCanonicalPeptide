@@ -117,9 +117,9 @@ workflow {
          file(params.index_dir),
          'noncoding_peptides'
       )
-      noncoding_peptides = filter_fasta_noncoding.out[0]
+      noncoding_peptides_filtered = filter_fasta_noncoding.out[0]
    } else {
-      noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
+      noncoding_peptides_filtered = Channel.fromPath(params.noncoding_peptides)
    }
 
    if (params.filter_fasta_variant) {
@@ -130,7 +130,7 @@ workflow {
          'variant_peptides'
       )
       variant_fasta_filtered = filter_fasta_variant.out[0]
-      summarize_fasta_post(gvf_files, variant_fasta_filtered, noncoding_peptides, file(params.index_dir))
+      summarize_fasta_post(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
    } else {
       variant_fasta_filtered = variant_fasta
    }
@@ -139,7 +139,7 @@ workflow {
       split_fasta(
          gvf_files,
          variant_fasta_filtered,
-         noncoding_peptides,
+         noncoding_peptides_filtered,
          file(params.index_dir)
       )
       splitted_fasta_file = split_fasta.out[1].flatten()
