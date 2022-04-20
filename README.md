@@ -18,6 +18,7 @@
       - [callVariant](#callvariant)
       - [filterFasta](#filterfasta)
       - [splitFasta](#splitfasta)
+      - [summarizeFasta](#summarizefasta)
       - [decoyFasta](#decoyfasta)
   - [Outputs](#outputs)
   - [License](#license)
@@ -169,6 +170,14 @@ Filter fasta can run separately for variant and noncoding peptide FASTA, so this
 | `group_source` | no | Group sources. E.g., PointMutation:gSNP,sSNV INDEL:gINDEL,sINDEL (default: None) |
 | `max_source_groups` | no | Maximal number of different source groups to be separate intoindividual database FASTA files. Defaults to 1 (default: 1) |
 | `additional_split` | no | For peptides that were not already split into FASTAs up tomax_source_groups, those involving the following source will be splitinto additional FASTAs with decreasing priority (default: None) |
+
+#### summarizeFasta
+
+| Field name | Required | Description |
+| ---------- | -------- | ----------- |
+| `order_source` | no | Order of sources, separate by comma. E.g., SNP,SNV,Fusion (default: None) |
+| `cleavage_rule` | no | Enzymatic cleavage rule. (default: trypsin) |
+| `invalid_protein_as_noncoding` | no | Treat any transcript that the protein sequence is invalid (contains the * symbol) as noncoding. (default: False) |
 
 #### decoyFasta
 
