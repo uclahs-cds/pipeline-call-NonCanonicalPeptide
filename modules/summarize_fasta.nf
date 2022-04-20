@@ -40,7 +40,7 @@ process summarize_fasta {
     script:
     output_summary = "${variant_fasta.baseName}_summary.txt"
     noncoding_arg = noncoding_peptides.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_peptides}"
-    extra_args = generate_args(params, 'splitFasta', ARGS, FLAGS)
+    extra_args = generate_args(params, 'summarizeFasta', ARGS, FLAGS)
     """
     set -euo pipefail
 
