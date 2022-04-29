@@ -29,7 +29,7 @@ process encode_fasta {
         file ".command.*"
 
     script:
-    output_fasta = "${input_fasta.baseName}_encoded.fasta"
+    output_fasta = "${input_fasta.baseName}_encode.fasta"
     output_dict = "${output_fasta}.dict"
     """
     set -euo pipefail
