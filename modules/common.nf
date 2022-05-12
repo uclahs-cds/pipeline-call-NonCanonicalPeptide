@@ -17,7 +17,7 @@ def generate_args(Map par, String namespace, Map args, Map flags) {
         if(it in args.keySet()) {
             res += " ${args[it]} ${par[namespace][it]}"
         } else if (it in flags.keySet() && par[namespace][it] == true) {
-            res += " ${args[it]}"
+            res += " ${flags[it]}"
         }
     }
     return res

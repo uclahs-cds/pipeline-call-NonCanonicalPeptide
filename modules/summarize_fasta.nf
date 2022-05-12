@@ -7,7 +7,8 @@ ARGS = [
 ]
 
 FLAGS = [
-    'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding'
+    'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding',
+    'ignore_missing_source': '--ignore-missing-source'
 ]
 
 def get_args_and_flags() {
