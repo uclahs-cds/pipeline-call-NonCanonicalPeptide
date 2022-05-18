@@ -39,10 +39,10 @@ workflow {
     )
 
     if (params.merge_variant_noncoding in ['yes', 'both']) {
-        process_database_nomerge(gvf_files, variant_fasta)
+        process_database_merge(gvf_files, variant_fasta)
     }
 
     if (params.merge_variant_noncoding in ['no', 'both']) {
-        process_database_merge(gvf_files, variant_fasta)
+        process_database_nomerge(gvf_files, variant_fasta)
     }
 }

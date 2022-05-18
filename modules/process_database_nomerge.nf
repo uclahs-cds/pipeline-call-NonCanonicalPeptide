@@ -5,7 +5,7 @@ include {
 } from './filter_fasta'
 include { encode_fasta } from './encode_fasta'
 include { decoy_fasta } from './decoy_fasta'
-include { summarize_fasta as summarize_fasta_split } from './summarize_fasta'
+include { summarize_fasta as summarize_fasta_nomerge } from './summarize_fasta'
 
 /**
 * Workflow to process database FASTA file(s) without the variant and noncoding peptides merged.
@@ -37,7 +37,7 @@ workflow process_database_nomerge {
             'variant_peptides'
         )
         variant_fasta_filtered = filter_fasta_variant.out[0]
-        summarize_fasta_split(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
+        summarize_fasta_nomerge(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
     } else {
         variant_fasta_filtered = variant_fasta
     }
@@ -49,16 +49,16 @@ workflow process_database_nomerge {
             noncoding_peptides_filtered,
             file(params.index_dir)
         )
-        splitted_fasta_file = split_fasta.out[1].flatten()
+        split_fasta_file = split_fasta.out[1].flatten()
     } else {
-        splitted_fasta_file = variant_fasta_filtered
+        split_fasta_file = variant_fasta_filtered
     }
 
     if (params.encode_fasta) {
-        encode_fasta(splitted_fasta_file)
+        encode_fasta(split_fasta_file)
         encoded_fasta_file = encode_fasta.out[0]
     } else {
-        encoded_fasta_file = splitted_fasta_file
+        encoded_fasta_file = split_fasta_file
     }
 
     if (params.decoy_fasta) {
