@@ -7,7 +7,7 @@ process merge_fasta {
     publishDir "${params.final_output_dir}/decoy",
         mode: 'copy',
         pattern: "*.fasta",
-        enabled: params.combine_variant_noncoding in ['no', 'both']
+        enabled: params.merge_variant_noncoding in ['no', 'both']
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',
@@ -22,7 +22,7 @@ process merge_fasta {
         file ".command.*"
 
     script:
-    output_fasta = "${input_fasta.baseName}_merged.fasta"
+    output_fasta = "${params.sample_name}_merged.fasta"
     """
     set -euo pipefail
 

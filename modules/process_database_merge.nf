@@ -14,7 +14,7 @@ workflow process_database_merge {
     variant_fasta
 
     main:
-    merge_fasta(variant_fasta.mix(Channel.fromPath(params.noncoding_peptides)))
+    merge_fasta(variant_fasta.mix(Channel.fromPath(params.noncoding_peptides)).collect())
 
     if (params.filter_fasta_merged) {
         filter_fasta_merged(
