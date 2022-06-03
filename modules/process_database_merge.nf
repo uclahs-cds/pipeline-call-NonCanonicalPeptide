@@ -37,25 +37,12 @@ workflow process_database_merge {
         merged_fasta_filtered = merge_fasta.out[0]
     }
 
-    // splitFasta
-    if (params.split_fasta) {
-        split_fasta(
-            gvf_files,
-            merged_fasta_filtered,
-            file('_NO_FILE'),
-            file(params.index_dir)
-        )
-        split_fasta_file = split_fasta.out[1].flatten()
-    } else {
-        split_fasta_file = merged_fasta_filtered
-    }
-
     // encodeFasta
     if (params.encode_fasta) {
-        encode_fasta(split_fasta_file)
+        encode_fasta(merged_fasta_filtered)
         encoded_fasta_file = encode_fasta.out[0]
     } else {
-        encoded_fasta_file = split_fasta_file
+        encoded_fasta_file = merged_fasta_filtered
     }
 
     // decoyFasta
