@@ -17,6 +17,7 @@ workflow process_database_nomerge {
     variant_fasta
 
     main:
+    // filterFasta Noncoding
     if (params.filter_fasta_noncoding) {
         filter_fasta_noncoding (
         file(params.noncoding_peptides),
@@ -29,6 +30,7 @@ workflow process_database_nomerge {
         noncoding_peptides_filtered = Channel.fromPath(params.noncoding_peptides)
     }
 
+    // filterFasta Variant
     if (params.filter_fasta_variant) {
         filter_fasta_variant(
             variant_fasta,
@@ -42,6 +44,7 @@ workflow process_database_nomerge {
         variant_fasta_filtered = variant_fasta
     }
 
+    // splitFasta
     if (params.split_fasta) {
         split_fasta(
             gvf_files,
@@ -54,6 +57,7 @@ workflow process_database_nomerge {
         split_fasta_file = variant_fasta_filtered
     }
 
+    // encodeFasta
     if (params.encode_fasta) {
         encode_fasta(split_fasta_file)
         encoded_fasta_file = encode_fasta.out[0]
@@ -61,6 +65,7 @@ workflow process_database_nomerge {
         encoded_fasta_file = split_fasta_file
     }
 
+    // decoyFasta
     if (params.decoy_fasta) {
         decoy_fasta(encoded_fasta_file)
     }

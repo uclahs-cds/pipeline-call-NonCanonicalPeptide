@@ -4,7 +4,7 @@ process merge_fasta {
 
     container params.docker_image_moPepGen
 
-    publishDir "${params.final_output_dir}/decoy",
+    publishDir "${params.final_output_dir}",
         mode: 'copy',
         pattern: "*.fasta",
         enabled: params.merge_variant_noncoding in ['no', 'both']
@@ -22,7 +22,7 @@ process merge_fasta {
         file ".command.*"
 
     script:
-    output_fasta = "${params.sample_name}_merged.fasta"
+    output_fasta = "${params.sample_name}_merged_peptides.fasta"
     """
     set -euo pipefail
 

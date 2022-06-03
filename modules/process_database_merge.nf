@@ -1,4 +1,5 @@
 include { merge_fasta } from './merge_fasta'
+include { split_fasta } from './split_fasta'
 include { filter_fasta as filter_fasta_merged } from './filter_fasta'
 include { encode_fasta } from './encode_fasta'
 include { decoy_fasta } from './decoy_fasta'
@@ -14,8 +15,10 @@ workflow process_database_merge {
     variant_fasta
 
     main:
+    // mergeFasta
     merge_fasta(variant_fasta.mix(Channel.fromPath(params.noncoding_peptides)).collect())
 
+    // fitlerFasta
     if (params.filter_fasta_merged) {
         filter_fasta_merged(
             merge_fasta.out[0],
@@ -34,6 +37,7 @@ workflow process_database_merge {
         merged_fasta_filtered = merge_fasta.out[0]
     }
 
+    // encodeFasta
     if (params.encode_fasta) {
         encode_fasta(merged_fasta_filtered)
         encoded_fasta_file = encode_fasta.out[0]
@@ -41,6 +45,7 @@ workflow process_database_merge {
         encoded_fasta_file = merged_fasta_filtered
     }
 
+    // decoyFasta
     if (params.decoy_fasta) {
         decoy_fasta(encoded_fasta_file)
     }
