@@ -23,6 +23,8 @@ process call_variant {
 
     container params.docker_image_moPepGen
 
+    containerOptions "--shm-size=10.24gb"
+
     publishDir params.final_output_dir,
         mode: 'copy',
         pattern: "*.fasta"
