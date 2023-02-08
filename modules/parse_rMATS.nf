@@ -41,13 +41,13 @@ process parse_rMATS {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_rMATs.gvf"
+    output_path = "${params.sample_name}_${source}_rMATS.gvf"
     input_args = ''
-    input_args += se.name == '_NO_FILE' ? " --se ${se}" : ''
-    input_args += a5ss.name == '_NO_FILE' ? " --a5ss ${a5ss}" : ''
-    input_args += a3ss.name == '_NO_FILE' ? " --a3ss ${a3ss}" : ''
-    input_args += mxe.name == '_NO_FILE' ? " --mxe ${mxe}" : ''
-    input_args += ri.name == '_NO_FILE' ? " --ri ${ri}" : ''
+    input_args += se.name == '_NO_FILE' ? '' : " --se ${se}"
+    input_args += a5ss.name == '_NO_FILE' ? '' : " --a5ss ${a5ss}"
+    input_args += a3ss.name == '_NO_FILE' ? '' : " --a3ss ${a3ss}"
+    input_args += mxe.name == '_NO_FILE' ? '' : " --mxe ${mxe}"
+    input_args += ri.name == '_NO_FILE' ? '' : " --ri ${ri}"
     extra_args = generate_args(params, 'parseRMATS', ARGS, FLAGS)
     """
     set -euo pipefail

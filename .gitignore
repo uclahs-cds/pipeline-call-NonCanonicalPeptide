@@ -18,3 +18,5 @@ pip-delete-this-directory.txt
 test/files/index
 
 test/output
+
+.vscode
