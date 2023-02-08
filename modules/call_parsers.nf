@@ -24,7 +24,7 @@ workflow call_parsers {
             return [it[2], it[3]]
         arriba: it[0] == 'Arriba'
             return [it[2], it[3]]
-        rmats: it[0] == 'rMATs'
+        rmats: it[0] == 'rMATS'
             return it
         circexplorer: it[0] == 'CIRCexplorer'
             return [it[2], it[3]]
@@ -60,7 +60,7 @@ workflow call_parsers {
                 ri = x[3]
                 break
             default:
-                throw new Exception("rMATs type ${x[1]} unknown")
+                throw new Exception("rMATS type ${x[1]} unknown")
         }
         }
         return [source, se, a5ss, a3ss, mxe, ri]
