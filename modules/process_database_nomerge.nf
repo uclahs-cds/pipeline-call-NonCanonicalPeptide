@@ -50,7 +50,8 @@ workflow process_database_nomerge {
             gvf_files,
             variant_fasta_filtered,
             noncoding_peptides_filtered,
-            file(params.index_dir)
+            file(params.index_dir),
+            params.filter_fasta_variant
         )
         split_fasta_file = split_fasta.out[1].flatten()
     } else {

@@ -1,9 +1,8 @@
 include { merge_fasta } from './merge_fasta'
-include { split_fasta } from './split_fasta'
 include { filter_fasta as filter_fasta_merged } from './filter_fasta'
 include { encode_fasta } from './encode_fasta'
 include { decoy_fasta } from './decoy_fasta'
-include { summarize_fasta as summarize_fasta_merge } from './summarize_fasta'
+include { summarize_fasta as summarize_fasta_merge; summarize_fasta as summarize_fasta_merge_filtered } from './summarize_fasta'
 
 /**
 * Workflow to process the database FASTA file(s) with variant and noncoding peptides merged.
@@ -18,6 +17,13 @@ workflow process_database_merge {
     // mergeFasta
     merge_fasta(variant_fasta.mix(Channel.fromPath(params.noncoding_peptides)).collect())
 
+    summarize_fasta_merge(
+        gvf_files,
+        merge_fasta.out[0],
+        file('_NO_FILE'),
+        file(params.index_dir)
+    )
+
     // fitlerFasta
     if (params.filter_fasta_merged) {
         filter_fasta_merged(
@@ -27,7 +33,7 @@ workflow process_database_merge {
             'merged_peptides'
         )
         merged_fasta_filtered = filter_fasta_merged.out[0]
-        summarize_fasta_merge(
+        summarize_fasta_merge_filtered(
             gvf_files,
             merged_fasta_filtered,
             file('_NO_FILE'),
