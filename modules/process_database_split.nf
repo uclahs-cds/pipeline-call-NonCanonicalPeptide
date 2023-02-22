@@ -30,14 +30,14 @@ workflow process_database_split {
             variant_fasta,
             file(params.noncoding_peptides),
             file(params.index_dir),
-            params.filter_fasta_variant
+            false
         )
         encode_decoy_unfiltered(split_fasta_unfiltered.out[1].flatten(), 'split')
     }
 
-    if (params.filter_fasta_noncoding || params.filter_fasta_variant) {
+    if (params.filter_fasta) {
         // filterFasta Noncoding
-        if (params.filter_fasta_noncoding) {
+        if (params.noncoding_peptides != '_NO_FILE') {
             filter_fasta_noncoding (
                 file(params.noncoding_peptides),
                 file(params.exprs_table),
@@ -46,21 +46,19 @@ workflow process_database_split {
             )
             noncoding_peptides_filtered = filter_fasta_noncoding.out[0]
         } else {
-            noncoding_peptides_filtered = Channel.fromPath(params.noncoding_peptides)
+            noncoding_peptides_filtered = file(params.noncoding_peptides)
         }
 
         // filterFasta Variant
-        if (params.filter_fasta_variant) {
-            filter_fasta_variant(
-                variant_fasta,
-                file(params.exprs_table),
-                file(params.index_dir),
-                'variant_peptides'
-            )
-            variant_fasta_filtered = filter_fasta_variant.out[0]
+        filter_fasta_variant(
+            variant_fasta,
+            file(params.exprs_table),
+            file(params.index_dir),
+            'variant_peptides'
+        )
+        variant_fasta_filtered = filter_fasta_variant.out[0]
+        if (!('plain' in params.database_processing_modes)) {
             summarize_fasta_split(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
-        } else {
-            variant_fasta_filtered = variant_fasta
         }
 
         // splitFasta
@@ -69,7 +67,7 @@ workflow process_database_split {
             variant_fasta_filtered,
             noncoding_peptides_filtered,
             file(params.index_dir),
-            params.filter_fasta_variant
+            true
         )
         split_fasta_file = split_fasta_filtered.out[1].flatten()
 

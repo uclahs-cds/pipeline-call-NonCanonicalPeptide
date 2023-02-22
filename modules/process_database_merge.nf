@@ -20,21 +20,25 @@ workflow process_database_merge {
 
     main:
     // mergeFasta
-    merge_fasta(variant_fasta.mix(Channel.fromPath(params.noncoding_peptides)).collect())
+    if (params.noncoding_peptides == '_NO_FILE') {
+        ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
+    } else {
+        ich_noncoding_peptides = Channel.fromList()    
+    }
+    merge_fasta(variant_fasta.mix(ich_noncoding_peptides).collect())
 
     if (params.process_unfiltered_fasta) {
         encode_decoy_unfiltered(merge_fasta.out[0], 'merge')
+        summarize_fasta_merge(
+            gvf_files,
+            merge_fasta.out[0],
+            file('_NO_FILE'),
+            file(params.index_dir)
+        )
     }
 
-    summarize_fasta_merge(
-        gvf_files,
-        merge_fasta.out[0],
-        file('_NO_FILE'),
-        file(params.index_dir)
-    )
-
     // fitlerFasta
-    if (params.filter_fasta_merged) {
+    if (params.filter_fasta) {
         filter_fasta_merged(
             merge_fasta.out[0],
             file(params.exprs_table),

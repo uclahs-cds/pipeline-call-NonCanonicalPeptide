@@ -26,7 +26,7 @@ process split_fasta {
 
     publishDir params.final_output_dir,
         mode: 'copy',
-        pattern: "split_filtered"
+        pattern: "filter_split"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',
@@ -46,7 +46,7 @@ process split_fasta {
         file ".command.*"
 
     script:
-    output_dir = filtered == true ? 'split_filtered' : 'split'
+    output_dir = filtered == true ? 'filter_split' : 'split'
     output_prefix = "${output_dir}/${params.sample_name}_split"
     noncoding_arg = noncoding_peptides.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_peptides}"
     extra_args = generate_args(params, 'splitFasta', ARGS, FLAGS)
