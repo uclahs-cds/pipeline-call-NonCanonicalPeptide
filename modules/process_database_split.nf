@@ -6,7 +6,7 @@ include {
    filter_fasta as filter_fasta_variant
    filter_fasta as filter_fasta_noncoding
 } from './filter_fasta'
-include { summarize_fasta as summarize_fasta_split } from './summarize_fasta'
+include { summarize_fasta } from './summarize_fasta'
 include {
     encode_decoy as encode_decoy_unfiltered
     encode_decoy as encode_decoy_filtered
@@ -57,7 +57,13 @@ workflow process_database_split {
             'variant_peptides'
         )
         variant_fasta_filtered = filter_fasta_variant.out[0]
-        summarize_fasta_split(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
+        summarize_fasta(
+            gvf_files,
+            variant_fasta_filtered,
+            noncoding_peptides_filtered,
+            file(params.index_dir),
+            'NO_TAG'
+        )
 
         // splitFasta
         split_fasta_filtered(

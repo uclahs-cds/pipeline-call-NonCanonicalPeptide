@@ -32,7 +32,8 @@ workflow process_database_merge {
             gvf_files,
             merge_fasta.out[0],
             file('_NO_FILE'),
-            file(params.index_dir)
+            file(params.index_dir),
+            'NO_TAG'
         )
         encode_decoy_unfiltered(merge_fasta.out[0], 'merge')
     }
@@ -50,7 +51,8 @@ workflow process_database_merge {
             gvf_files,
             merged_fasta_filtered,
             file('_NO_FILE'),
-            file(params.index_dir)
+            file(params.index_dir),
+            'NO_TAG'
         )
         encode_decoy_filtered(merged_fasta_filtered, 'merge_filter')
     }

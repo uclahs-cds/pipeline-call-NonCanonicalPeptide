@@ -4,7 +4,7 @@ nextflow.enable.dsl = 2
 include { print_prelogue } from './modules/common'
 include { call_parsers } from './modules/call_parsers'
 include { call_variant } from './modules/call_variant'
-include { summarize_fasta as summarize_fasta_pre } from './modules/summarize_fasta'
+include { summarize_fasta } from './modules/summarize_fasta'
 include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 include { process_database_merge } from './modules/process_database_merge'
 include { process_database_split } from './modules/process_database_split'
@@ -32,11 +32,12 @@ workflow {
         }
     }
 
-    summarize_fasta_pre(
+    summarize_fasta(
         gvf_files,
         variant_fasta,
         file(params.noncoding_peptides),
-        file(params.index_dir)
+        file(params.index_dir),
+        'NO_TAG'
     )
 
     if ('plain' in params.database_processing_modes) {

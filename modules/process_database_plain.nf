@@ -30,7 +30,13 @@ workflow process_database_plain {
             'variant_peptides'
         )
         variant_fasta_filtered = filter_fasta.out[0]
-        summarize_fasta(gvf_files, variant_fasta_filtered, '_NO_FILE', file(params.index_dir))
+        summarize_fasta(
+            gvf_files,
+            variant_fasta_filtered,
+            '_NO_FILE',
+            file(params.index_dir),
+            'variant_only'
+        )
         encode_decoy_filtered(variant_fasta_filtered, 'plain')
     }
 }
