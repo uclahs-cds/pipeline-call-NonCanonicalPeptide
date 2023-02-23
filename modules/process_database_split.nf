@@ -13,7 +13,7 @@ include {
 } from './workflow_encode_decoy'
 
 /**
-* Workflow to process database FASTA file(s) without the variant and noncoding peptides merged.
+* Workflow to process database FASTA file(s) directly outputted by callVariant without merging or splitting.
 */
 
 workflow process_database_split {
@@ -57,9 +57,7 @@ workflow process_database_split {
             'variant_peptides'
         )
         variant_fasta_filtered = filter_fasta_variant.out[0]
-        if (!('plain' in params.database_processing_modes)) {
-            summarize_fasta_split(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
-        }
+        summarize_fasta_split(gvf_files, variant_fasta_filtered, noncoding_peptides_filtered, file(params.index_dir))
 
         // splitFasta
         split_fasta_filtered(

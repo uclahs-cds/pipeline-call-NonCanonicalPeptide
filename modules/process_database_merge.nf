@@ -28,13 +28,13 @@ workflow process_database_merge {
     merge_fasta(variant_fasta.mix(ich_noncoding_peptides).collect())
 
     if (params.process_unfiltered_fasta) {
-        encode_decoy_unfiltered(merge_fasta.out[0], 'merge')
         summarize_fasta_merge(
             gvf_files,
             merge_fasta.out[0],
             file('_NO_FILE'),
             file(params.index_dir)
         )
+        encode_decoy_unfiltered(merge_fasta.out[0], 'merge')
     }
 
     // fitlerFasta
