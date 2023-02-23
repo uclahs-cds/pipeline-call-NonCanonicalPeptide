@@ -4,15 +4,14 @@ process encode_fasta {
 
     container params.docker_image_moPepGen
 
-    publishDir "${params.final_output_dir}/encode",
+    publishDir { mode in ['split', 'filter_split'] ? "${params.final_output_dir}/encode/${mode}" : "${params.final_output_dir}/encode" },
         mode: 'copy',
         pattern: "*.{fasta,fasta.dict}"
 
     // So each decoy fasta also has a copy of the dict with same name pattern.
-    publishDir "${params.final_output_dir}/decoy",
+    publishDir { mode in ['split', 'filter_split'] ? "${params.final_output_dir}/decoy/${mode}" : "${params.final_output_dir}/decoy" },
         mode: 'copy',
         pattern: "*.fasta.dict",
-        enabled: params.decoy_fasta,
         saveAs: { "${file(it).getSimpleName()}_decoy.fasta.dict" }
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
@@ -22,6 +21,7 @@ process encode_fasta {
 
     input:
         file input_fasta
+        val  mode
 
     output:
         file output_fasta

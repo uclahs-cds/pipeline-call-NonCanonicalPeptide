@@ -6,8 +6,7 @@ process merge_fasta {
 
     publishDir "${params.final_output_dir}",
         mode: 'copy',
-        pattern: "*.fasta",
-        enabled: params.merge_variant_noncoding in ['no', 'both']
+        pattern: "*.fasta"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',

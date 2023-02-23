@@ -4,10 +4,11 @@ nextflow.enable.dsl = 2
 include { print_prelogue } from './modules/common'
 include { call_parsers } from './modules/call_parsers'
 include { call_variant } from './modules/call_variant'
-include { summarize_fasta as summarize_fasta_pre } from './modules/summarize_fasta'
+include { summarize_fasta } from './modules/summarize_fasta'
 include { resolve_filename_conflict } from './modules/resolve_filename_conflict'
 include { process_database_merge } from './modules/process_database_merge'
-include { process_database_nomerge } from './modules/process_database_nomerge'
+include { process_database_split } from './modules/process_database_split'
+include { process_database_plain } from './modules/process_database_plain'
 
 print_prelogue()
 
@@ -31,18 +32,23 @@ workflow {
         }
     }
 
-    summarize_fasta_pre(
+    summarize_fasta(
         gvf_files,
         variant_fasta,
         file(params.noncoding_peptides),
-        file(params.index_dir)
+        file(params.index_dir),
+        'NO_TAG'
     )
 
-    if (params.merge_variant_noncoding in ['yes', 'both']) {
+    if ('plain' in params.database_processing_modes) {
+        process_database_plain(gvf_files, variant_fasta)
+    }
+
+    if ('merge' in params.database_processing_modes) {
         process_database_merge(gvf_files, variant_fasta)
     }
 
-    if (params.merge_variant_noncoding in ['no', 'both']) {
-        process_database_nomerge(gvf_files, variant_fasta)
+    if ('split' in params.database_processing_modes) {
+        process_database_split(gvf_files, variant_fasta)
     }
 }
