@@ -21,9 +21,9 @@ workflow process_database_merge {
     main:
     // mergeFasta
     if (params.noncoding_peptides == '_NO_FILE') {
-        ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
+        ich_noncoding_peptides = Channel.fromList()
     } else {
-        ich_noncoding_peptides = Channel.fromList()    
+        ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
     }
     merge_fasta(variant_fasta.mix(ich_noncoding_peptides).collect())
 
