@@ -3,6 +3,10 @@ include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
     'max_variants_per_node': '--max-variants-per-node',
+    'additional_variants_per_misc': '--additional-variants-per-misc',
+    'min_nodes_to_collapse': '--min-nodes-to-collapse',
+    'naa_to_collapse': '--naa-to-collapse',
+    'verbose_level': '--verbose-level',
     'cleavage_rule': '--cleavage-rule',
     'miscleavage': '--miscleavage',
     'min_mw': '--min-mw',
