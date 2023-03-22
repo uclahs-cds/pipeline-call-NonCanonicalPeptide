@@ -32,6 +32,7 @@ process summarize_fasta {
         file gvfs
         file variant_fasta
         file noncoding_peptides
+        file alt_tranlation_peptides
         file index_dir
         val tag
 
@@ -41,7 +42,8 @@ process summarize_fasta {
 
     script:
     output_summary = tag == 'NO_TAG' ? "${variant_fasta.baseName}_summary.txt" : "${variant_fasta.baseName}_${tag}_summary.txt"
-    noncoding_arg = noncoding_peptides.name == '_NO_FILE' ? '' : "--noncoding-peptides ${noncoding_peptides}"
+    noncoding_arg = noncoding_peptides.name == params._DEFAULT_NONCODING_PEPTIDES ? '' : "--noncoding-peptides ${noncoding_peptides}"
+    alt_translation_arg = alt_translation_peptides.name == params._DEFAULT_ALT_TRANSLATION_PEPTIDES ? '' : "--alt-translation-peptides ${alt_translation_peptides}"
     extra_args = generate_args(params, 'summarizeFasta', ARGS, FLAGS)
     """
     set -euo pipefail
@@ -50,6 +52,7 @@ process summarize_fasta {
         --gvf ${gvfs} \
         --variant-peptides ${variant_fasta} \
         ${noncoding_arg} \
+        ${alt_translation_arg} \
         ${extra_args} \
         --index-dir ${index_dir} \
         --output-path ${output_summary} \

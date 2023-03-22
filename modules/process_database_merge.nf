@@ -20,18 +20,31 @@ workflow process_database_merge {
 
     main:
     // mergeFasta
-    if (params.noncoding_peptides == '_NO_FILE') {
+    if (params.noncoding_peptides == params._DEFAULT_NONCODING_PEPTIDES) {
         ich_noncoding_peptides = Channel.fromList()
     } else {
         ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
     }
-    merge_fasta(variant_fasta.mix(ich_noncoding_peptides).collect())
+
+    if (params.alt_translation_peptides == params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
+        ich_alt_translation_peptides = Channel.fromList()
+    } else {
+        ich_alt_translation_peptides = Channel.fromPath(params.alt_translation_peptides)
+    }
+
+    ich_fastas_to_be_merged = variant_fasta
+        .mix(ich_noncoding_peptides)
+        .mix(ich_alt_translation_peptides)
+        .collect()
+
+    merge_fasta(ich_fastas_to_be_merged)
 
     if (params.process_unfiltered_fasta) {
         summarize_fasta_merge(
             gvf_files,
             merge_fasta.out[0],
-            file('_NO_FILE'),
+            file(params._DEFAULT_NONCODING_PEPTIDES),
+            file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
         )
@@ -50,7 +63,8 @@ workflow process_database_merge {
         summarize_fasta_merge_filtered(
             gvf_files,
             merged_fasta_filtered,
-            file('_NO_FILE'),
+            file(params._DEFAULT_NONCODING_PEPTIDES),
+            file(parmas._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
         )
