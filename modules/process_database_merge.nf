@@ -64,7 +64,7 @@ workflow process_database_merge {
             gvf_files,
             merged_fasta_filtered,
             file(params._DEFAULT_NONCODING_PEPTIDES),
-            file(parmas._DEFAULT_ALT_TRANSLATION_PEPTIDES),
+            file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
         )

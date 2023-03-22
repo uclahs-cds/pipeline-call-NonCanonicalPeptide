@@ -32,7 +32,7 @@ process summarize_fasta {
         file gvfs
         file variant_fasta
         file noncoding_peptides
-        file alt_tranlation_peptides
+        file alt_translation_peptides
         file index_dir
         val tag
 

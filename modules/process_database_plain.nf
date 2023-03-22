@@ -34,7 +34,7 @@ workflow process_database_plain {
             gvf_files,
             variant_fasta_filtered,
             file(params._DEFAULT_NONCODING_PEPTIDES),
-            file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),,
+            file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'variant_only'
         )

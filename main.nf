@@ -36,6 +36,7 @@ workflow {
         gvf_files,
         variant_fasta,
         file(params.noncoding_peptides),
+        file(params.alt_translation_peptides),
         file(params.index_dir),
         'NO_TAG'
     )
