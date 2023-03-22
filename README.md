@@ -155,7 +155,7 @@ The variables below are set under tool specific namespaces. See [this](test/test
 
 #### filterFasta
 
-Filter fasta can run separately for variant, noncoding, and alternative translation peptide FASTA, so this section can take up to two namespaces, named `variant_peptides`, `noncoding_peptides` and `alt_translation_peptides`. The parameters allowed in each namespace is listed below. You can set `quant_cutoff` for variant peptides as 200 and for noncoding peptides as 100. If either namespace is not defined, the corresponding filter won't run.
+Filter fasta can run separately for variant, noncoding, and alternative translation peptide FASTA, so this section can take up to four namespaces, named `variant_peptides`, `noncoding_peptides` and `alt_translation_peptides`. The parameters allowed in each namespace is listed below. You can set `quant_cutoff` for variant peptides as 200 and for noncoding peptides as 100. If either namespace is not defined, the corresponding filter won't run.
 
 | Field name | Required | Description |
 | ---------- | -------- | ----------- |
