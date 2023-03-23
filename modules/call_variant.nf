@@ -3,6 +3,7 @@ include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
     'max_variants_per_node': '--max-variants-per-node',
+    'max_adjacent_as_mnv': '--max-adjacent-as-mnv',
     'additional_variants_per_misc': '--additional-variants-per-misc',
     'min_nodes_to_collapse': '--min-nodes-to-collapse',
     'naa_to_collapse': '--naa-to-collapse',
@@ -16,7 +17,9 @@ ARGS = [
 
 FLAGS = [
     'noncanonical_transcripts': '--noncanonical-transcripts',
-    'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding'
+    'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding',
+    'selenocysteine_termination': '--selenocysteine-termination',
+    'w2f_reassignment': '--w2f-reassignment'
 ]
 
 def get_args_and_flags() {
