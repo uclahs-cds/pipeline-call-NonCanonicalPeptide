@@ -47,3 +47,10 @@ cases:
     nf_config: test/test-integration-merge/test.config
     skip: false
     verbose: true
+  
+  - name: test-integration-no-filter
+    message: Integration test with no filter
+    nf_script: main.nf
+    nf_config: test/test-integration-no-filter/test.config
+    skip: false
+    verbose: true
