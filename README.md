@@ -151,7 +151,7 @@ The variables below are set under tool specific namespaces. See [this](test/test
 | `max_adjacent_as_mnv` | no | Max number of adjacent variants that should be merged. (default: 2) |
 | `min_nodes_to_collapse` | no | When making the cleavage graph, the minimal number of nodes to trigger pop collapse. (default: 30) |
 | `naa_to_collapse` | no | The number of bases used for pop collapse. (default: 5) |
-| `selenocysteine-termination` | no | Include peptides of selenoprotiens that the UGA is treated as termination instead of Sec. |
+| `selenocysteine-termination` | no | Include peptides of selenoproteins where the UGA is treated as termination instead of Sec. |
 | `w2f_reassignment` | no | Include peptides with W > F (Tryptophan to Phenylalanine) reassignment. |
 | `cleavage_rule` | no | Enzymatic cleavage rule. (default: trypsin) |
 | `miscleavage` | no | Number of cleavages to allow per non-canonical peptide. (default: 2) |
