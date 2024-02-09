@@ -24,7 +24,7 @@
   - [License](#license)
 ## Overview
 
-This pipeline takes genomic and transcriptomic variation data such as SNP, INDEL, and Fusion, and calls variant peptides from them using the graph-based algorithm [moPepGen](https://github.com/uclahs-cds/private-moPepGen)
+This pipeline takes genomic and transcriptomic variation data such as SNP, INDEL, and Fusion, and calls variant peptides from them using the graph-based algorithm [moPepGen](https://github.com/uclahs-cds/package-moPepGen)
 
 ---
 
