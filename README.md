@@ -147,7 +147,7 @@ The variables below are set under tool specific namespaces. See [this](test/test
 | Field name | Required | Description |
 | ---------- | -------- | ----------- |
 | `max_variants_per_node` | no | Maximal number of variants per node. This argument can be useful when there are local regions that are heavily mutated. When creating the cleavage graph, nodes containing variants larger than this value are skipped. Setting to -1 will avoid checking for this. When multiple values are specified, they will be used as retry stretagy. (default: [7]) |
-| `additional_variants_per_misc` | no | Additional variants allowed for every miscleavage. This argument is used together with --max-variants-per-node to handle hypermutated regions. Setting to -1 will avoid checking for this. When multiple values are specified, they will be used as retry stretagy. (default: [2]) |
+| `additional_variants_per_misc` | no | Additional variants allowed for every miscleavage. This argument is used together with --max-variants-per-node to handle hypermutated regions. Set to -1 to avoid this check. When multiple values are specified, they will be used as retry stretagy. (default: [2]) |
 | `max_adjacent_as_mnv` | no | Max number of adjacent variants that should be merged. (default: 2) |
 | `min_nodes_to_collapse` | no | When making the cleavage graph, the minimal number of nodes to trigger pop collapse. (default: 30) |
 | `naa_to_collapse` | no | The number of bases used for pop collapse. (default: 5) |
