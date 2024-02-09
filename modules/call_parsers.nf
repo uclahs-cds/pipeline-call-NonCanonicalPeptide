@@ -31,7 +31,7 @@ workflow call_parsers {
         reditools: it[0] == 'REDItools'
             return [it[2], it[3]]
         other: true
-            throw new Exception("Variant called by software ${it[1]} is not supported.")
+            throw new Exception("Variant called by software ${it[0]} is not supported.")
             return
         }
 

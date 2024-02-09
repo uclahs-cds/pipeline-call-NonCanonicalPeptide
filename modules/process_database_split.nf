@@ -5,6 +5,7 @@ include {
 include {
    filter_fasta as filter_fasta_variant
    filter_fasta as filter_fasta_noncoding
+   filter_fasta as filter_fasta_alt_translation
 } from './filter_fasta'
 include { summarize_fasta } from './summarize_fasta'
 include {
@@ -29,6 +30,7 @@ workflow process_database_split {
             gvf_files,
             variant_fasta,
             file(params.noncoding_peptides),
+            file(params.alt_translation_peptides),
             file(params.index_dir),
             false
         )
@@ -37,7 +39,7 @@ workflow process_database_split {
 
     if (params.filter_fasta) {
         // filterFasta Noncoding
-        if (params.noncoding_peptides != '_NO_FILE') {
+        if (params.noncoding_peptides != params._DEFAULT_NONCODING_PEPTIDES) {
             filter_fasta_noncoding (
                 file(params.noncoding_peptides),
                 file(params.exprs_table),
@@ -49,6 +51,19 @@ workflow process_database_split {
             noncoding_peptides_filtered = file(params.noncoding_peptides)
         }
 
+        // filterFasta alt translation
+        if (params.alt_translation_peptides != params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
+            filter_fasta_alt_translation (
+                file(params.alt_translation_peptides),
+                file(params.exprs_table),
+                file(params.index_dir),
+                'alt_translation_peptides'
+            )
+            alt_translation_peptides_filtered = filter_fasta_alt_translation.out[0]
+        } else {
+            alt_translation_peptides_filtered = file(params.alt_translation_peptides)
+        }
+
         // filterFasta Variant
         filter_fasta_variant(
             variant_fasta,
@@ -57,10 +72,13 @@ workflow process_database_split {
             'variant_peptides'
         )
         variant_fasta_filtered = filter_fasta_variant.out[0]
+
+        // Summarized the filtered fasta files
         summarize_fasta(
             gvf_files,
             variant_fasta_filtered,
             noncoding_peptides_filtered,
+            alt_translation_peptides_filtered,
             file(params.index_dir),
             'NO_TAG'
         )
@@ -70,6 +88,7 @@ workflow process_database_split {
             gvf_files,
             variant_fasta_filtered,
             noncoding_peptides_filtered,
+            alt_translation_peptides_filtered,
             file(params.index_dir),
             true
         )
