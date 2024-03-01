@@ -14,9 +14,13 @@ def generate_args(Map par, String namespace, Map args, Map flags) {
     def res = ''
     if(!(par.containsKey(namespace))) return res
     for (it in par[namespace].keySet()) {
+        val = par[namespace][it]
         if(it in args.keySet()) {
-            res += " ${args[it]} ${par[namespace][it]}"
-        } else if (it in flags.keySet() && par[namespace][it] == true) {
+            if (val in List) {
+                val = val.join(' ')
+            }
+            res += " ${args[it]} ${val}"
+        } else if (it in flags.keySet() && val == true) {
             res += " ${flags[it]}"
         }
     }
