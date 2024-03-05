@@ -12,7 +12,8 @@ ARGS = [
     'miscleavage': '--miscleavage',
     'min_mw': '--min-mw',
     'min_length': '--min-length',
-    'max_length': '--max-length'
+    'max_length': '--max-length',
+    'timeout_seconds': '--timeout-seconds'
 ]
 
 FLAGS = [
