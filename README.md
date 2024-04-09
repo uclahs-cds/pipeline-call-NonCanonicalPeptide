@@ -52,7 +52,7 @@ nextflow run path/to/pipeline-call-NoncanonicalPeptide/main.nf -c sample.config
 
 ## Entrypoints
 
-This pipeline has three entrypoints, 'parser', 'gvf', and 'fasta'. When using 'parser' entrypoint, the raw files from variant callers are expected and corresponding moPepGen parsers are called before running `callVariant`. When using 'gvf' entrypoint, the moPepGen GVF files are expected and moPepGen `callVariant` is called directly on them. When using 'fasta' entrypoint, not only the moPepGen GVF files are expected from the `input_csv`, but also variant peptide FASTA file needs to be input to the pipeline. It then skips `callVariant` and only the downstream `filterFasta`, `splitFasta`, `encodeFasta` and `summarizeFasta` are called.
+This pipeline has three entrypoints, 'parser', 'gvf', and 'fasta'. When using the 'parser' entrypoint, the raw files from variant callers are expected and corresponding moPepGen parsers are called before running `callVariant`. When using the 'gvf' entrypoint, the moPepGen GVF files are expected and moPepGen `callVariant` is called directly on them. When using the 'fasta' entrypoint, not only the moPepGen GVF files are expected from the `input_csv`, but also variant peptide FASTA file needs to be input to the pipeline. It then skips `callVariant` and only the downstream `filterFasta`, `splitFasta`, `encodeFasta` and `summarizeFasta` are called.
 
 ---
 
@@ -71,7 +71,7 @@ The fields required for the input CSV files are listed below. See example [here]
 
 ### Entrypoint: 'gvf' or 'fasta'
 
-Directly input of GVF files are also supported, which will skip all `moPepGen` parsers. In this case, the input CSV should contain only one column being the path to the GVF files. See [here](inputs/input-gvf.csv) for example.
+Directly input of GVF files is also supported, which will skip all `moPepGen` parsers. In this case, the input CSV should contain only one column being the path to the GVF files. See [here](inputs/input-gvf.csv) for example.
 
 ---
 
