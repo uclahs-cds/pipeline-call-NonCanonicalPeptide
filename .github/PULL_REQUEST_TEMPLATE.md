@@ -1,9 +1,12 @@
-> This is a template for UCLA-CDS pipeline developers to create a github pull request template. Things should be adjusted for individual pipeline including:
-> 1. additional checklist items sepecific to the pipeline
-> 2. a description of how testing is expected to be done
-> 3. a template list or table for testing results
-> 4. additional notes wrapped in \<!--- ---> (or \<!-- --\> for inline comments) that help PR submitters to fill in.
-> 5. delete this block of instructional text.
+## Description
+
+<!---
+Briefly describe the changes included in this pull request and the paths to the test cases below. Ending with 'Closes #...' if appropriate
+--->
+
+### Closes #...
+
+## Checklist
 
 <!--- Please read each of the following items and confirm by replacing the [ ] with a [X] --->
 
@@ -22,8 +25,3 @@ already, or do not wish to be listed. (*This acknowledgement is optional.*)
 - [ ] I have updated the version number in the `metadata.yaml` and `manifest` block of the `nextflow.config` file following [semver](https://semver.org/), or the version number has already been updated. (*Leave it unchecked if you are unsure about new version number and discuss it with the infrastructure team in this PR.*)
 
 - [ ] All test cases have passed.
-
-<!--- Briefly describe the changes included in this pull request and the paths to the test cases below
- !--- starting with 'Closes #...' if appropriate --->
-
-Closes #...
