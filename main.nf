@@ -15,9 +15,9 @@ print_prelogue()
 workflow {
     if (params.entrypoint == 'parser') {
         parse_SourceVariant_workflow()
-        ch_gvf_files = call_parsers.out.collect()
+        ch_gvf_files = parse_SourceVariant_workflow.out.collect()
         call_VariantPeptide(ch_gvf_files, file(params.index_dir))
-        ch_variant_fasta = call_variant.out[0]
+        ch_variant_fasta = call_VariantPeptide.out[0]
 
     } else {
         ich = Channel.fromPath(params.input_csv).splitCsv(header:true).map { file(it.path) }

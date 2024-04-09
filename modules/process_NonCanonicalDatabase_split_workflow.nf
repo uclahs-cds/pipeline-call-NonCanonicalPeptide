@@ -11,7 +11,7 @@ include { summarize_FASTA } from './summarize_FASTA'
 include {
     encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_workflow_unfiltered
     encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_workflow_filtered
-} from './workflow_encode_decoy'
+} from './encodeDecoy_FASTA_workflow'
 
 /**
 * Workflow to process database FASTA file(s) directly outputted by callVariant without merging or splitting.

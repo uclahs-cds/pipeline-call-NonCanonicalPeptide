@@ -1,4 +1,4 @@
-include { encode_fasta } from './encode_fasta'
+include { encode_FASTA } from './encode_FASTA'
 include { decoy_FASTA } from './decoy_FASTA'
 
 workflow encodeDecoy_FASTA_workflow {
@@ -9,14 +9,14 @@ workflow encodeDecoy_FASTA_workflow {
     main:
     // encodeFasta
     if (params.encode_fasta) {
-        encode_fasta(fasta_file, mode)
-        encoded_fasta_file = encode_fasta.out[0]
+        encode_FASTA(fasta_file, mode)
+        ch_encoded_fasta_file = encode_FASTA.out[0]
     } else {
-        encoded_fasta_file = fasta_file
+        ch_encoded_fasta_file = fasta_file
     }
 
     // decoyFasta
     if (params.decoy_fasta) {
-        decoy_FASTA(encoded_fasta_file, mode)
+        decoy_FASTA(ch_encoded_fasta_file, mode)
     }
 }

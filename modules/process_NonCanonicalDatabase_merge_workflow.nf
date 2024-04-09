@@ -37,24 +37,24 @@ workflow process_NonCanonicalDatabase_merge_workflow {
         .mix(ich_alt_translation_peptides)
         .collect()
 
-    merge_fasta(ich_fastas_to_be_merged)
+    merge_FASTA(ich_fastas_to_be_merged)
 
     if (params.process_unfiltered_fasta) {
         summarize_FASTA_merge_unfiltered(
             gvf_files,
-            merge_fasta.out[0],
+            merge_FASTA.out[0],
             file(params._DEFAULT_NONCODING_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
         )
-        encodeDecoy_FASTA_unfiltered(merge_fasta.out[0], 'merge')
+        encodeDecoy_FASTA_unfiltered(merge_FASTA.out[0], 'merge')
     }
 
     // fitlerFasta
     if (params.filter_fasta) {
         filter_FASTA_merged(
-            merge_fasta.out[0],
+            merge_FASTA.out[0],
             file(params.exprs_table),
             file(params.index_dir),
             'merged_peptides'

@@ -32,7 +32,7 @@ workflow process_NonCanonicalDatabase_plain_workflow {
         ch_variant_peptides_filtered = filter_FASTA.out[0]
         summarize_FASTA(
             gvf_files,
-            variant_fasta_filtered,
+            ch_variant_peptides_filtered,
             file(params._DEFAULT_NONCODING_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
