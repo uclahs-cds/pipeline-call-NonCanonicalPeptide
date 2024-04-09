@@ -21,7 +21,7 @@ process merge_FASTA {
         file ".command.*"
 
     script:
-    output_fasta = "${params.sample_name}_merged_peptides.fasta"
+    output_fasta = "${params.sample_id}_merged_peptides.fasta"
     """
     set -euo pipefail
 

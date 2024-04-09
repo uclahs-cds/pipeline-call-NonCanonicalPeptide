@@ -36,7 +36,7 @@ process parse_STARFusion {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_STARFusion.gvf"
+    output_path = "${params.sample_id}_${source}_STARFusion.gvf"
     extra_args = generate_args(params, 'parseSTARFusion', ARGS, FLAGS)
     """
     set -euo pipefail

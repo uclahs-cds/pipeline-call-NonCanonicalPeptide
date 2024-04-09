@@ -37,7 +37,7 @@ process parse_FusionCatcher {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_FusionCatcher.gvf"
+    output_path = "${params.sample_id}_${source}_FusionCatcher.gvf"
     extra_args = generate_args(params, 'parseFusionCatcher', ARGS, FLAGS)
     """
     set -euo pipefail

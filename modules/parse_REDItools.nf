@@ -39,7 +39,7 @@ process parse_REDItools {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_REDItools.gvf"
+    output_path = "${params.sample_id}_${source}_REDItools.gvf"
     extra_args = generate_args(params, 'parseREDItools', ARGS, FLAGS)
     """
     set -euo pipefail
