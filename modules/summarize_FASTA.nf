@@ -42,7 +42,7 @@ process summarize_FASTA {
 
     script:
     output_summary = tag == 'NO_TAG' ? "${variant_fasta.baseName}_summary.txt" : "${variant_fasta.baseName}_${tag}_summary.txt"
-    noncoding_arg = noncoding_peptides.name == params._DEFAULT_NONCODING_PEPTIDES ? '' : "--noncoding-peptides ${noncoding_peptides}"
+    noncoding_arg = noncoding_peptides.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--noncoding-peptides ${noncoding_peptides}"
     alt_translation_arg = alt_translation_peptides.name == params._DEFAULT_ALT_TRANSLATION_PEPTIDES ? '' : "--alt-translation-peptides ${alt_translation_peptides}"
     extra_args = generate_args(params, 'summarizeFasta', ARGS, FLAGS)
     """

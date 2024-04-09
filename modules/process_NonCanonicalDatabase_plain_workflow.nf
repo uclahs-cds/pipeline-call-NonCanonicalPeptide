@@ -21,7 +21,7 @@ workflow process_NonCanonicalDatabase_plain_workflow {
         encodeDecoy_FASTA_unfiltered(variant_fasta, 'plain')
     }
 
-    if (params.filter_fasta) {
+    if (params.enable_filter_fasta) {
         // filterFasta Variant
         filter_FASTA(
             variant_fasta,
@@ -33,7 +33,7 @@ workflow process_NonCanonicalDatabase_plain_workflow {
         summarize_FASTA(
             gvf_files,
             ch_variant_peptides_filtered,
-            file(params._DEFAULT_NONCODING_PEPTIDES),
+            file(params._DEFAULT_NOVEL_ORF_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'variant_only'

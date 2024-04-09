@@ -20,7 +20,7 @@ workflow process_NonCanonicalDatabase_merge_workflow {
 
     main:
     // mergeFasta
-    if (params.noncoding_peptides == params._DEFAULT_NONCODING_PEPTIDES) {
+    if (params.noncoding_peptides == params._DEFAULT_NOVEL_ORF_PEPTIDES) {
         ich_noncoding_peptides = Channel.fromList()
     } else {
         ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
@@ -43,7 +43,7 @@ workflow process_NonCanonicalDatabase_merge_workflow {
         summarize_FASTA_merge_unfiltered(
             gvf_files,
             merge_FASTA.out[0],
-            file(params._DEFAULT_NONCODING_PEPTIDES),
+            file(params._DEFAULT_NOVEL_ORF_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
@@ -52,7 +52,7 @@ workflow process_NonCanonicalDatabase_merge_workflow {
     }
 
     // fitlerFasta
-    if (params.filter_fasta) {
+    if (params.enable_filter_fasta) {
         filter_FASTA_merged(
             merge_FASTA.out[0],
             file(params.exprs_table),
@@ -63,7 +63,7 @@ workflow process_NonCanonicalDatabase_merge_workflow {
         summarize_FASTA_merge_filtered(
             gvf_files,
             ch_merged_fasta_filtered,
-            file(params._DEFAULT_NONCODING_PEPTIDES),
+            file(params._DEFAULT_NOVEL_ORF_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'

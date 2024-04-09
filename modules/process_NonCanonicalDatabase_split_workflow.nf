@@ -37,9 +37,9 @@ workflow process_NonCanonicalDatabase_split_workflow {
         encodeDecoy_FASTA_workflow_unfiltered(split_FASTA_unfiltered.out[1].flatten(), 'split')
     }
 
-    if (params.filter_fasta) {
+    if (params.enable_filter_fasta) {
         // filterFasta Noncoding
-        if (params.noncoding_peptides != params._DEFAULT_NONCODING_PEPTIDES) {
+        if (params.noncoding_peptides != params._DEFAULT_NOVEL_ORF_PEPTIDES) {
             filter_FASTA_novelORF (
                 file(params.noncoding_peptides),
                 file(params.exprs_table),

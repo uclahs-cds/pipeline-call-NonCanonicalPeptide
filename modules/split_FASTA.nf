@@ -49,7 +49,7 @@ process split_FASTA {
     script:
     output_dir = filtered == true ? 'filter_split' : 'split'
     output_prefix = "${output_dir}/${params.sample_name}_split"
-    noncoding_arg = noncoding_peptides.name == params._DEFAULT_NONCODING_PEPTIDES ? '' : "--noncoding-peptides ${noncoding_peptides}"
+    noncoding_arg = noncoding_peptides.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--noncoding-peptides ${noncoding_peptides}"
     alt_translation_arg = alt_translation_peptides.name == params._DEFAULT_ALT_TRANSLATION_PEPTIDES ? '' : "--alt-translation-peptides ${alt_translation_peptides}"
     extra_args = generate_args(params, 'splitFasta', ARGS, FLAGS)
     """

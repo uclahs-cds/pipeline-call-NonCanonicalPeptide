@@ -8,7 +8,7 @@ workflow encodeDecoy_FASTA_workflow {
 
     main:
     // encodeFasta
-    if (params.encode_fasta) {
+    if (params.enable_encode_fasta) {
         encode_FASTA(fasta_file, mode)
         ch_encoded_fasta_file = encode_FASTA.out[0]
     } else {
@@ -16,7 +16,7 @@ workflow encodeDecoy_FASTA_workflow {
     }
 
     // decoyFasta
-    if (params.decoy_fasta) {
+    if (params.enable_decoy_fasta) {
         decoy_FASTA(ch_encoded_fasta_file, mode)
     }
 }
