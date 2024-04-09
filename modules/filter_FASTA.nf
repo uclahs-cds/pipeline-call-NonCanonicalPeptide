@@ -18,7 +18,7 @@ def get_args_and_flags() {
     return [ARGS, FLAGS]
 }
 
-process filter_fasta {
+process filter_FASTA {
 
     container params.docker_image_moPepGen
 

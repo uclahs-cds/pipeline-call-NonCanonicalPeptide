@@ -1,23 +1,23 @@
 include {
-    split_fasta as split_fasta_unfiltered
-    split_fasta as split_fasta_filtered
- } from './split_fasta'
+    split_FASTA as split_FASTA_unfiltered
+    split_FASTA as split_FASTA_filtered
+ } from './split_FASTA'
 include {
-   filter_fasta as filter_fasta_variant
-   filter_fasta as filter_fasta_noncoding
-   filter_fasta as filter_fasta_alt_translation
-} from './filter_fasta'
-include { summarize_fasta } from './summarize_fasta'
+   filter_FASTA as filter_FASTA_variant
+   filter_FASTA as filter_FASTA_novelORF
+   filter_FASTA as filter_FASTA_altTrans
+} from './filter_FASTA'
+include { summarize_FASTA } from './summarize_FASTA'
 include {
-    encode_decoy as encode_decoy_unfiltered
-    encode_decoy as encode_decoy_filtered
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_workflow_unfiltered
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_workflow_filtered
 } from './workflow_encode_decoy'
 
 /**
 * Workflow to process database FASTA file(s) directly outputted by callVariant without merging or splitting.
 */
 
-workflow process_database_split {
+workflow process_NonCanonicalDatabase_split_workflow {
     take:
     gvf_files
     variant_fasta
@@ -26,7 +26,7 @@ workflow process_database_split {
 
     // Split, encode and decoy the unfiltered FASTA
     if (params.process_unfiltered_fasta) {
-        split_fasta_unfiltered(
+        split_FASTA_unfiltered(
             gvf_files,
             variant_fasta,
             file(params.noncoding_peptides),
@@ -34,66 +34,66 @@ workflow process_database_split {
             file(params.index_dir),
             false
         )
-        encode_decoy_unfiltered(split_fasta_unfiltered.out[1].flatten(), 'split')
+        encodeDecoy_FASTA_workflow_unfiltered(split_FASTA_unfiltered.out[1].flatten(), 'split')
     }
 
     if (params.filter_fasta) {
         // filterFasta Noncoding
         if (params.noncoding_peptides != params._DEFAULT_NONCODING_PEPTIDES) {
-            filter_fasta_noncoding (
+            filter_FASTA_novelORF (
                 file(params.noncoding_peptides),
                 file(params.exprs_table),
                 file(params.index_dir),
                 'noncoding_peptides'
             )
-            noncoding_peptides_filtered = filter_fasta_noncoding.out[0]
+            ch_novelORF_peptides_filtered = filter_FASTA_novelORF.out[0]
         } else {
-            noncoding_peptides_filtered = file(params.noncoding_peptides)
+            ch_novelORF_peptides_filtered = file(params.noncoding_peptides)
         }
 
         // filterFasta alt translation
         if (params.alt_translation_peptides != params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
-            filter_fasta_alt_translation (
+            filter_FASTA_altTrans (
                 file(params.alt_translation_peptides),
                 file(params.exprs_table),
                 file(params.index_dir),
                 'alt_translation_peptides'
             )
-            alt_translation_peptides_filtered = filter_fasta_alt_translation.out[0]
+            ch_altTrans_peptides_filtered = filter_FASTA_altTrans.out[0]
         } else {
-            alt_translation_peptides_filtered = file(params.alt_translation_peptides)
+            ch_altTrans_peptides_filtered = file(params.alt_translation_peptides)
         }
 
         // filterFasta Variant
-        filter_fasta_variant(
+        filter_FASTA_variant(
             variant_fasta,
             file(params.exprs_table),
             file(params.index_dir),
             'variant_peptides'
         )
-        variant_fasta_filtered = filter_fasta_variant.out[0]
+        ch_variant_peptides_filtered = filter_FASTA_variant.out[0]
 
         // Summarized the filtered fasta files
-        summarize_fasta(
+        summarize_FASTA(
             gvf_files,
-            variant_fasta_filtered,
-            noncoding_peptides_filtered,
-            alt_translation_peptides_filtered,
+            ch_variant_peptides_filtered,
+            ch_novelORF_peptides_filtered,
+            ch_altTrans_peptides_filtered,
             file(params.index_dir),
             'NO_TAG'
         )
 
         // splitFasta
-        split_fasta_filtered(
+        split_FASTA_filtered(
             gvf_files,
-            variant_fasta_filtered,
-            noncoding_peptides_filtered,
-            alt_translation_peptides_filtered,
+            ch_variant_peptides_filtered,
+            ch_novelORF_peptides_filtered,
+            ch_altTrans_peptides_filtered,
             file(params.index_dir),
             true
         )
-        split_fasta_file = split_fasta_filtered.out[1].flatten()
+        ch_split_filtered_fasta = split_FASTA_filtered.out[1].flatten()
 
-        encode_decoy_filtered(split_fasta_file, 'filter_split')
+        encodeDecoy_FASTA_workflow_filtered(ch_split_filtered_fasta, 'filter_split')
     }
 }

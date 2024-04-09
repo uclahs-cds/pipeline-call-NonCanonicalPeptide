@@ -1,19 +1,19 @@
-include { merge_fasta } from './merge_fasta'
-include { filter_fasta as filter_fasta_merged } from './filter_fasta'
+include { merge_FASTA } from './merge_FASTA'
+include { filter_FASTA as filter_FASTA_merged } from './filter_FASTA'
 include {
-    summarize_fasta as summarize_fasta_merge
-    summarize_fasta as summarize_fasta_merge_filtered
-} from './summarize_fasta'
+    summarize_FASTA as summarize_FASTA_merge_unfiltered
+    summarize_FASTA as summarize_FASTA_merge_filtered
+} from './summarize_FASTA'
 include {
-    encode_decoy as encode_decoy_unfiltered
-    encode_decoy as encode_decoy_filtered
-} from './workflow_encode_decoy'
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_unfiltered
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_filtered
+} from './encodeDecoy_FASTA_workflow'
 
 /**
 * Workflow to process the database FASTA file(s) with variant and noncoding peptides merged.
 */
 
-workflow process_database_merge {
+workflow process_NonCanonicalDatabase_merge_workflow {
     take:
     gvf_files
     variant_fasta
@@ -40,7 +40,7 @@ workflow process_database_merge {
     merge_fasta(ich_fastas_to_be_merged)
 
     if (params.process_unfiltered_fasta) {
-        summarize_fasta_merge(
+        summarize_FASTA_merge_unfiltered(
             gvf_files,
             merge_fasta.out[0],
             file(params._DEFAULT_NONCODING_PEPTIDES),
@@ -48,26 +48,26 @@ workflow process_database_merge {
             file(params.index_dir),
             'NO_TAG'
         )
-        encode_decoy_unfiltered(merge_fasta.out[0], 'merge')
+        encodeDecoy_FASTA_unfiltered(merge_fasta.out[0], 'merge')
     }
 
     // fitlerFasta
     if (params.filter_fasta) {
-        filter_fasta_merged(
+        filter_FASTA_merged(
             merge_fasta.out[0],
             file(params.exprs_table),
             file(params.index_dir),
             'merged_peptides'
         )
-        merged_fasta_filtered = filter_fasta_merged.out[0]
-        summarize_fasta_merge_filtered(
+        ch_merged_fasta_filtered = filter_FASTA_merged.out[0]
+        summarize_FASTA_merge_filtered(
             gvf_files,
-            merged_fasta_filtered,
+            ch_merged_fasta_filtered,
             file(params._DEFAULT_NONCODING_PEPTIDES),
             file(params._DEFAULT_ALT_TRANSLATION_PEPTIDES),
             file(params.index_dir),
             'NO_TAG'
         )
-        encode_decoy_filtered(merged_fasta_filtered, 'merge_filter')
+        encodeDecoy_FASTA_filtered(ch_merged_fasta_filtered, 'merge_filter')
     }
 }

@@ -27,7 +27,7 @@ def get_args_and_flags() {
     return [ARGS, FLAGS]
 }
 
-process call_variant {
+process call_VariantPeptide {
 
     container params.docker_image_moPepGen
 

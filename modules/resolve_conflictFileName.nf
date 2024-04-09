@@ -1,6 +1,6 @@
 /* module for resolving filename conflict */
 
-process resolve_filename_conflict {
+process resolve_conflictFileName {
     input:
         file input_file
 

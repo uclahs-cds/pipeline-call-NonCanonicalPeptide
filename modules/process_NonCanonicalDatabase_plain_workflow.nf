@@ -1,16 +1,16 @@
-include { split_fasta } from './split_fasta'
-include { filter_fasta } from './filter_fasta'
-include { summarize_fasta } from './summarize_fasta'
+include { split_FASTA } from './split_FASTA'
+include { filter_FASTA } from './filter_FASTA'
+include { summarize_FASTA } from './summarize_FASTA'
 include {
-    encode_decoy as encode_decoy_unfiltered
-    encode_decoy as encode_decoy_filtered
-} from './workflow_encode_decoy'
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_unfiltered
+    encodeDecoy_FASTA_workflow as encodeDecoy_FASTA_filtered
+} from './encodeDecoy_FASTA_workflow'
 
 /**
 * Workflow to process database FASTA file(s) without the variant and noncoding peptides merged.
 */
 
-workflow process_database_plain {
+workflow process_NonCanonicalDatabase_plain_workflow {
     take:
     gvf_files
     variant_fasta
@@ -18,19 +18,19 @@ workflow process_database_plain {
     main:
     // Unfiltered fasta
     if (params.process_unfiltered_fasta) {
-        encode_decoy_unfiltered(variant_fasta, 'plain')
+        encodeDecoy_FASTA_unfiltered(variant_fasta, 'plain')
     }
 
     if (params.filter_fasta) {
         // filterFasta Variant
-        filter_fasta(
+        filter_FASTA(
             variant_fasta,
             file(params.exprs_table),
             file(params.index_dir),
             'variant_peptides'
         )
-        variant_fasta_filtered = filter_fasta.out[0]
-        summarize_fasta(
+        ch_variant_peptides_filtered = filter_FASTA.out[0]
+        summarize_FASTA(
             gvf_files,
             variant_fasta_filtered,
             file(params._DEFAULT_NONCODING_PEPTIDES),
@@ -38,6 +38,6 @@ workflow process_database_plain {
             file(params.index_dir),
             'variant_only'
         )
-        encode_decoy_filtered(variant_fasta_filtered, 'plain')
+        encodeDecoy_FASTA_filtered(ch_variant_peptides_filtered, 'plain')
     }
 }

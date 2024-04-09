@@ -15,7 +15,7 @@ ARGS = [
 
 FLAGS = [:]
 
-process decoy_fasta {
+process decoy_FASTA {
 
     container params.docker_image_moPepGen
 

@@ -15,7 +15,7 @@ def get_args_and_flags() {
     return [ARGS, FLAGS]
 }
 
-process summarize_fasta {
+process summarize_FASTA {
 
     container params.docker_image_moPepGen
 

@@ -10,7 +10,7 @@ include { parse_rMATS } from './parse_rMATS'
 * Workflow to call all moPepGen parsers
 */
 
-workflow call_parsers {
+workflow parse_SourceVariant_workflow {
     main:
     ich = Channel.fromPath(params.input_csv).splitCsv(header:true)
         .map{ [it.software, it.alt_splice_type, it.source, file(it.path)] }

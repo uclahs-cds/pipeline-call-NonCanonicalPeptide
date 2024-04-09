@@ -1,7 +1,7 @@
 include { encode_fasta } from './encode_fasta'
-include { decoy_fasta } from './decoy_fasta'
+include { decoy_FASTA } from './decoy_FASTA'
 
-workflow encode_decoy {
+workflow encodeDecoy_FASTA_workflow {
     take:
     fasta_file
     mode
@@ -17,6 +17,6 @@ workflow encode_decoy {
 
     // decoyFasta
     if (params.decoy_fasta) {
-        decoy_fasta(encoded_fasta_file, mode)
+        decoy_FASTA(encoded_fasta_file, mode)
     }
 }
