@@ -1,6 +1,6 @@
 /* module for encode fasta */
 
-process encode_fasta {
+process encode_FASTA {
 
     container params.docker_image_moPepGen
 
