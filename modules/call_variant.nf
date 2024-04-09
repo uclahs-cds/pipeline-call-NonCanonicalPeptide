@@ -7,7 +7,7 @@ ARGS = [
     'additional_variants_per_misc': '--additional-variants-per-misc',
     'min_nodes_to_collapse': '--min-nodes-to-collapse',
     'naa_to_collapse': '--naa-to-collapse',
-    'verbose_level': '--verbose-level',
+    'debug_level': '--debug-level',
     'cleavage_rule': '--cleavage-rule',
     'miscleavage': '--miscleavage',
     'min_mw': '--min-mw',
@@ -35,7 +35,7 @@ process call_variant {
 
     publishDir params.final_output_dir,
         mode: 'copy',
-        pattern: "*.fasta"
+        pattern: "*.{fasta,txt}"
 
     publishDir "${params.process_log_dir}/${task.process.replace(':', '/')}-${task.index}/",
         mode: 'copy',
@@ -48,10 +48,12 @@ process call_variant {
 
     output:
         file output_fasta optional true
+        file output_table optional true
         file ".command.*"
 
     script:
     output_fasta = "${params.sample_name}_variant_peptides.fasta"
+    output_table = "${params.sample_name}_variant_peptides_peptide_table.txt"
     extra_args = generate_args(params, 'callVariant', ARGS, FLAGS)
     """
     set -euo pipefail
