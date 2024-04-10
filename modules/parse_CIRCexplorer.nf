@@ -42,7 +42,7 @@ process parse_CIRCexplorer {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_CIRCexplorer.gvf"
+    output_path = "${params.sample_id}_${source}_CIRCexplorer.gvf"
     extra_args = generate_args(params, 'parseCIRCexplorer', ARGS, FLAGS)
     """
     set -euo pipefail

@@ -41,7 +41,7 @@ process parse_rMATS {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_rMATS.gvf"
+    output_path = "${params.sample_id}_${source}_rMATS.gvf"
     input_args = ''
     input_args += se.name == '_NO_FILE' ? '' : " --se ${se}"
     input_args += a5ss.name == '_NO_FILE' ? '' : " --a5ss ${a5ss}"

@@ -38,7 +38,7 @@ process parse_Arriba {
         file ".command.*"
 
     script:
-    output_path = "${params.sample_name}_${source}_Arriba.gvf"
+    output_path = "${params.sample_id}_${source}_Arriba.gvf"
     extra_args = generate_args(params, 'parseArriba', ARGS, FLAGS)
     """
     set -euo pipefail

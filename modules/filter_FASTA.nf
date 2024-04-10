@@ -42,7 +42,7 @@ process filter_FASTA {
         file ".command.*"
 
     script:
-    output_fasta = "${params.sample_name}_${indicator}_filtered.fasta"
+    output_fasta = "${params.sample_id}_${indicator}_filtered.fasta"
     extra_args = generate_args(params['filterFasta'], indicator, ARGS, FLAGS)
     """
     set -euo pipefail

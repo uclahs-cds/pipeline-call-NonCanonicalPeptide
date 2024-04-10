@@ -57,7 +57,7 @@ def print_prelogue() {
             version: ${workflow.manifest.version}
 
         - input:
-            sample_name : ${params.sample_name}
+            sample_id : ${params.sample_id}
             input_csv   : ${params.input_csv}
             index_dir   : ${params.index_dir}
 

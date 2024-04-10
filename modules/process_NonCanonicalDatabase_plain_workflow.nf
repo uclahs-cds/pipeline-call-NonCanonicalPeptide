@@ -13,21 +13,21 @@ include {
 workflow process_NonCanonicalDatabase_plain_workflow {
     take:
     gvf_files
-    variant_fasta
+    variant_peptide
 
     main:
     // Unfiltered fasta
     if (params.process_unfiltered_fasta) {
-        encodeDecoy_FASTA_unfiltered(variant_fasta, 'plain')
+        encodeDecoy_FASTA_unfiltered(variant_peptide, 'plain')
     }
 
     if (params.enable_filter_fasta) {
         // filterFasta Variant
         filter_FASTA(
-            variant_fasta,
+            variant_peptide,
             file(params.exprs_table),
             file(params.index_dir),
-            'variant_peptides'
+            'variant_peptide'
         )
         ch_variant_peptides_filtered = filter_FASTA.out[0]
         summarize_FASTA(
