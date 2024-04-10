@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Config - pipeline-call-NonCanonicalPeptide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Config";
+        var mkdocs_page_input_path = "config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pipeline-call-NonCanonicalPeptide
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../how-to-run/">How To Run</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flow-diagram/">Flow Diagram</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../entrypoints/">Entrypoints</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../input-csv/">Input CSV</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Config</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tool-specific-namespaces">Tool specific namespaces</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#parsereditools">parseREDItools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parsestarfusion">parseSTARFusion</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parsearriba">parseArriba</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parsefusioncatcher">parseFusionCatcher</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parsecircexplorer">parseCIRCexplorer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#callvariant">callVariant</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filterfasta">filterFasta</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#splitfasta">splitFasta</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summarizefasta">summarizeFasta</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decoyfasta">decoyFasta</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../references/">References</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pipeline-call-NonCanonicalPeptide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Config</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/2db38a707c528a6c0707946d7c6a83943f4ce7f3/README.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="config">Config</h2>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_csv</code></td>
+<td>yes</td>
+<td>Path to the input CSV file See <a href="../input-csv/#input-csv">Input CSV</a>.</td>
+</tr>
+<tr>
+<td><code>output_dir</code></td>
+<td>yes</td>
+<td>Output directory.</td>
+</tr>
+<tr>
+<td><code>dataset_id</code></td>
+<td>yes</td>
+<td>Dataset ID.</td>
+</tr>
+<tr>
+<td><code>sample_id</code></td>
+<td>yes</td>
+<td>Sample ID.</td>
+</tr>
+<tr>
+<td><code>index_dir</code></td>
+<td>yes</td>
+<td>Path the the genome index directory, generated by <code>moPepGen generateIndex</code>. See <a href="https://uclahs-cds.github.io/package-moPepGen/generate-index/">here</a> for the detail of this command.</td>
+</tr>
+<tr>
+<td><code>ucla_cds</code></td>
+<td>no</td>
+<td>Whether to use UCLA-CDS' cluster specific configuration. Defaults to <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>save_intermediate_files</code></td>
+<td>no</td>
+<td>Whether to save intermediate files. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>entrypoint</code></td>
+<td>no</td>
+<td>When set to <code>parser</code>, it expects to receive raw variant files. When set to <code>gvf</code>, it expects to receive GVF files that are already parsed by moPepGen's parsers.</td>
+</tr>
+<tr>
+<td><code>variant_peptide</code></td>
+<td>no</td>
+<td>Path to the variant peptide FASTA file. Only need when using 'fasta' entrypoint.</td>
+</tr>
+<tr>
+<td><code>novel_orf_peptide</code></td>
+<td>no</td>
+<td>Noncoding peptide database generated by moPepGen <code>callNovelORF</code>, to be split together (default: None)</td>
+</tr>
+<tr>
+<td><code>alt_translation_peptide</code></td>
+<td>no</td>
+<td>Alternative translation peptide database generated by moPepGen <code>callAltTranslation</code>, to be split together (default: None)</td>
+</tr>
+<tr>
+<td><code>enable_filter_fasta</code></td>
+<td>no</td>
+<td>Whether to run <code>filterFasta</code> on the variant, noncoding, and/or the merged FASTA file. Defaults to <code>false</code>. If <code>true</code> is given, corresponding namespaces must be specified under <code>params.enable_filter_fasta</code> according to <code>database_processing_modes</code>.</td>
+</tr>
+<tr>
+<td><code>exprs_table</code></td>
+<td>no</td>
+<td>Gene expression table used to filter variant peptide FASTA. Required when <code>enable_filter_fasta</code> is <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>database_processing_modes</code></td>
+<td>yes</td>
+<td>Database postprocessing modes. Must be at least one of 'merge', 'split' and 'plain'. For 'merge', noncoding and variant peptides are merged into one database FASTA. For 'split', noncoding and variant peptides are split into separate database files. For 'plain', the FASTA file output by moPepGen is first filtered (if specified) and then encoded and decoyed. Filter (if specifed), encode and decoy database are done in the same way as 'plain' for 'merge' and 'split'.</td>
+</tr>
+<tr>
+<td><code>process_unfiltered_fasta</code></td>
+<td>no</td>
+<td>Whether the unfiltered fasta files should be processed (filtering, encode and decoy). Defaults to <code>true</code> unless using FASTA entrypoint or <code>enable_filter_fasta</code> is <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>enable_encode_fasta</code></td>
+<td>no</td>
+<td>Whether to run <code>encodeFasta</code> on the variant peptide FASTA called by <code>callVariant</code> （runs once after <code>filterFasta</code> and <code>splitFasta</code>, if used). Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>enable_decoy_fasta</code></td>
+<td>no</td>
+<td>Whether to run <code>decoyFasta</code> on the variant peptide FASTA called by <code>callVariant</code> (runs once after <code>filterFasta</code>, <code>splitFasta</code> and <code>encodeFasta</code>, if used). Defaults to <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tool-specific-namespaces">Tool specific namespaces</h3>
+<p>The variables below are set under tool specific namespaces. See <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/2db38a707c528a6c0707946d7c6a83943f4ce7f3/test/test-integration-entrypoint-parser/test.config">this</a> example config to see how they are set. If the tool is not used, the namespace does not needs to be set. For example, if REDItools results is not included in the input CSV, <code>moPepGen parseREDItools</code> won't be called, so the <code>parseREDItools</code> namespace does not need to be present in the config file.</p>
+<h4 id="parsereditools">parseREDItools</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transcript_id_column</code></td>
+<td>no</td>
+<td>The column index for transcript ID. If your REDItools table doesnot contains it, use the <code>AnnotateTable.py</code> from the REDItoolspackage. (default: 16)</td>
+</tr>
+<tr>
+<td><code>min_coverage_alt</code></td>
+<td>no</td>
+<td>Minimal read coverage of alterations to be parsed. (default: 3)</td>
+</tr>
+<tr>
+<td><code>min_frequency_alt</code></td>
+<td>no</td>
+<td>Minimal frequency of alteration to be parsed. (default: 0.1)</td>
+</tr>
+<tr>
+<td><code>min_coverage_dna</code></td>
+<td>no</td>
+<td>Minimal read coverage at the alteration site of WGS. Set it to -1 to skip checking this. (default: 10)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="parsestarfusion">parseSTARFusion</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min_est_j</code></td>
+<td>no</td>
+<td>Minimal estimated junction reads to be included. (default: 5.0)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="parsearriba">parseArriba</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min_split_read1</code></td>
+<td>no</td>
+<td>Minimal <code>split_read1</code> value. (default: 1)</td>
+</tr>
+<tr>
+<td><code>min_split_read2</code></td>
+<td>no</td>
+<td>Minimal <code>split_read2</code> value. (default: 1)</td>
+</tr>
+<tr>
+<td><code>min_confidence</code></td>
+<td>no</td>
+<td>Minimal confidence value. (default: medium)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="parsefusioncatcher">parseFusionCatcher</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_common_mapping</code></td>
+<td>no</td>
+<td>Maximal number of common mapping reads. (default: 0)</td>
+</tr>
+<tr>
+<td><code>min_spanning_unique</code></td>
+<td>no</td>
+<td>Minimal spanning unique reads. (default: 5)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="parsecircexplorer">parseCIRCexplorer</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min_read_number</code></td>
+<td>no</td>
+<td>Minimal number of junction read counts. (default: 1)</td>
+</tr>
+<tr>
+<td><code>min_fpb_circ</code></td>
+<td>no</td>
+<td>Minimal CRICscore value for CIRCexplorer3. Recommends to 1, defaults to None (default: None)</td>
+</tr>
+<tr>
+<td><code>min_circ_score</code></td>
+<td>no</td>
+<td>Minimal CIRCscore value for CIRCexplorer3. Recommends to 1, defaults to None (default: None)</td>
+</tr>
+<tr>
+<td><code>intron_start_range</code></td>
+<td>no</td>
+<td>The range of difference allowed between the intron start and the reference position. (default: -2,0)</td>
+</tr>
+<tr>
+<td><code>intron_end_range</code></td>
+<td>no</td>
+<td>The range of difference allowed between the intron end and the reference position. (default: -100,5)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="callvariant">callVariant</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_variants_per_node</code></td>
+<td>no</td>
+<td>Maximal number of variants per node. This argument can be useful when there are local regions that are heavily mutated. When creating the cleavage graph, nodes containing variants larger than this value are skipped. Set to -1 to avoid this check. When multiple values are specified, they will be used as retry stretagy. (default: [7])</td>
+</tr>
+<tr>
+<td><code>additional_variants_per_misc</code></td>
+<td>no</td>
+<td>Additional variants allowed for every miscleavage. This argument is used together with --max-variants-per-node to handle hypermutated regions. Set to -1 to avoid this check. When multiple values are specified, they will be used as retry stretagy. (default: [2])</td>
+</tr>
+<tr>
+<td><code>max_adjacent_as_mnv</code></td>
+<td>no</td>
+<td>Max number of adjacent variants that should be merged. (default: 2)</td>
+</tr>
+<tr>
+<td><code>min_nodes_to_collapse</code></td>
+<td>no</td>
+<td>When making the cleavage graph, the minimal number of nodes to trigger pop collapse. (default: 30)</td>
+</tr>
+<tr>
+<td><code>naa_to_collapse</code></td>
+<td>no</td>
+<td>The number of bases used for pop collapse. (default: 5)</td>
+</tr>
+<tr>
+<td><code>selenocysteine-termination</code></td>
+<td>no</td>
+<td>Include peptides of selenoproteins where the UGA is treated as termination instead of Sec.</td>
+</tr>
+<tr>
+<td><code>w2f_reassignment</code></td>
+<td>no</td>
+<td>Include peptides with W &gt; F (Tryptophan to Phenylalanine) reassignment.</td>
+</tr>
+<tr>
+<td><code>cleavage_rule</code></td>
+<td>no</td>
+<td>Enzymatic cleavage rule. (default: trypsin)</td>
+</tr>
+<tr>
+<td><code>miscleavage</code></td>
+<td>no</td>
+<td>Number of cleavages to allow per non-canonical peptide. (default: 2)</td>
+</tr>
+<tr>
+<td><code>min_mw</code></td>
+<td>no</td>
+<td>The minimal molecular weight of the non-canonical peptides. (default: 500.0)</td>
+</tr>
+<tr>
+<td><code>min_length</code></td>
+<td>no</td>
+<td>The minimal length of non-canonical peptides, inclusive. (default: 7)</td>
+</tr>
+<tr>
+<td><code>max_length</code></td>
+<td>no</td>
+<td>The maximum length of non-canonical peptides, inclusive. (default: 25)</td>
+</tr>
+<tr>
+<td><code>timeout_seconds</code></td>
+<td>no</td>
+<td>Time out in seconds for each transcript. (default: 1800)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="filterfasta">filterFasta</h4>
+<p>Filter fasta can run separately for variant, noncoding, and alternative translation peptide FASTA, so this section can take up to four namespaces, named <code>variant_peptide</code>, <code>novel_orf_peptide</code> and <code>alt_translation_peptide</code>. The parameters allowed in each namespace are listed below. You can set <code>quant_cutoff</code> for variant peptides as 200 and for noncoding peptides as 100. If either namespace is not defined, the corresponding filter won't run.</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>skip_lines</code></td>
+<td>no</td>
+<td>Number of lines to skip when reading the expression table.Defaults to 0 (default: 0)</td>
+</tr>
+<tr>
+<td><code>delimiter</code></td>
+<td>no</td>
+<td>Delimiter of the expression table. Defaults to tab. (default: '\t')</td>
+</tr>
+<tr>
+<td><code>tx_id_col</code></td>
+<td>yes</td>
+<td>The index for transcript ID in the RNAseq quantification results. Index is 1-based. (default: None)</td>
+</tr>
+<tr>
+<td><code>quant_col</code></td>
+<td>yes</td>
+<td>The column index number for quantification. Index is 1-based. (default: None)</td>
+</tr>
+<tr>
+<td><code>quant_cutoff</code></td>
+<td>yes</td>
+<td>Quantification cutoff. (default: None)</td>
+</tr>
+<tr>
+<td><code>keep_all_coding</code></td>
+<td>no</td>
+<td>Keep all coding genes, regardless of their expression level. (default: false)</td>
+</tr>
+<tr>
+<td><code>keep_all_noncoding</code></td>
+<td>no</td>
+<td>Keep all noncoding genes, regardless of their expression level. (default: false)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="splitfasta">splitFasta</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>order_source</code></td>
+<td>no</td>
+<td>Order of sources, separate by comma. E.g., SNP,SNV,Fusion (default: None)</td>
+</tr>
+<tr>
+<td><code>group_source</code></td>
+<td>no</td>
+<td>Group sources. E.g., PointMutation:gSNP,sSNV INDEL:gINDEL,sINDEL (default: None)</td>
+</tr>
+<tr>
+<td><code>max_source_groups</code></td>
+<td>no</td>
+<td>Maximal number of different source groups to be separate intoindividual database FASTA files. Defaults to 1 (default: 1)</td>
+</tr>
+<tr>
+<td><code>additional_split</code></td>
+<td>no</td>
+<td>For peptides that were not already split into FASTAs up tomax_source_groups, those involving the following source will be splitinto additional FASTAs with decreasing priority (default: None)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="summarizefasta">summarizeFasta</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>order_source</code></td>
+<td>no</td>
+<td>Order of sources, separate by comma. E.g., SNP,SNV,Fusion (default: None)</td>
+</tr>
+<tr>
+<td><code>cleavage_rule</code></td>
+<td>no</td>
+<td>Enzymatic cleavage rule. (default: trypsin)</td>
+</tr>
+<tr>
+<td><code>invalid_protein_as_noncoding</code></td>
+<td>no</td>
+<td>Treat any transcript that the protein sequence is invalid (contains the * symbol) as noncoding. (default: False)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="decoyfasta">decoyFasta</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>decoy_string</code></td>
+<td>no</td>
+<td>The decoy string that is combined with the FASTA header for decoy sequences. <code>str</code> Default: <code>DECOY_</code></td>
+</tr>
+<tr>
+<td><code>decoy_string_position</code></td>
+<td>no</td>
+<td>Should the decoy string be placed at the start or end of FASTA headers? <code>str</code> Default: 'prefix', Choices: ['prefix', 'suffix']</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>no</td>
+<td>Method to be used to generate the decoy sequences from target sequences. <code>str</code>. Default: 'reverse'. Choices: ['reverse', 'shuffle']</td>
+</tr>
+<tr>
+<td><code>non_shuffle_pattern</code></td>
+<td>no</td>
+<td>Residues to not shuffle and keep at the original position. Separate by common (e.g. "K,R") str</td>
+</tr>
+<tr>
+<td><code>shuffle_max_attempts</code></td>
+<td>no</td>
+<td>Maximal attempts to shuffle a sequence to avoid any identical decoy sequence. <code>int</code> Default: 30</td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td>no</td>
+<td>Random seed number. <code>int</code></td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>no</td>
+<td>Order of target and decoy sequences to write in the output FASTA. <code>str</code> Default: 'juxtaposed'. Choices: ['juxtaposed', 'target_first', 'decoy_first']</td>
+</tr>
+<tr>
+<td><code>keep_peptide_nterm</code></td>
+<td>Whether to keep the peptide N terminus constant. <code>str</code>. Default: 'true' Choices: ['true', 'false']</td>
+<td></td>
+</tr>
+<tr>
+<td><code>keep_peptide_cterm</code></td>
+<td>no</td>
+<td>Whether to keep the peptide C terminus constant. <code>str</code> Default: 'true'. Choices: ['true', 'false']</td>
+</tr>
+</tbody>
+</table>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../input-csv/" class="btn btn-neutral float-left" title="Input CSV"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../outputs/" class="btn btn-neutral float-right" title="Outputs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../input-csv/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../outputs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
