@@ -136,7 +136,7 @@ parseFusionCatcher:
     min_spanning_unique:
       type: Integer
       required: false
-      help: Minimal spanning unique reads. (default: 5)
+      help: 'Minimal spanning unique reads. (default: 5)'
 parseCIRCexplorer:
   type: Namespace
   elements:
@@ -226,7 +226,7 @@ filterFasta:
     delimiter:
       type: String
       required: false
-      help: 'Delimiter of the expression table. Defaults to tab. (default: '\t')'
+      help: "Delimiter of the expression table. Defaults to tab. (default: '\t')"
     tx_id_col:
       type: Integer
       required: false
@@ -255,7 +255,7 @@ splitFasta:
       required: false
       help: 'Order of sources, separate by comma. E.g., SNP,SNV,Fusion (default: None)'
     group_source:
-    type: String
+      type: String
       required: false
       help: 'Group sources. E.g., PointMutation:gSNP,sSNV INDEL:gINDEL,sINDEL (default: None)'
     max_source_groups:
@@ -305,7 +305,7 @@ decoyFasta:
     non_shuffle_pattern:
       type: String
       required: false
-      help: "Residues to not shuffle and keep at the original position. Separate by common (e.g. "K,R") str"
+      help: 'Residues to not shuffle and keep at the original position. Separate by common (e.g. "K,R") str'
     shuffle_max_attempts:
       type: Integer
       required: false
