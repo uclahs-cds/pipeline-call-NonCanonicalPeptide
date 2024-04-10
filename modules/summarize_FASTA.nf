@@ -42,7 +42,7 @@ process summarize_FASTA {
 
     script:
     output_summary = tag == 'NO_TAG' ? "${variant_peptide.baseName}_summary.txt" : "${variant_peptide.baseName}_${tag}_summary.txt"
-    noncoding_arg = novel_orf_peptide.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--noncoding-peptides ${novel_orf_peptide}"
+    novel_orf_arg = novel_orf_peptide.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--novel-orf-peptides ${novel_orf_peptide}"
     alt_translation_arg = alt_translation_peptide.name == params._DEFAULT_ALT_TRANSLATION_PEPTIDES ? '' : "--alt-translation-peptides ${alt_translation_peptide}"
     extra_args = generate_args(params, 'summarizeFasta', ARGS, FLAGS)
     """
@@ -51,7 +51,7 @@ process summarize_FASTA {
     moPepGen summarizeFasta \
         --gvf ${gvfs} \
         --variant-peptides ${variant_peptide} \
-        ${noncoding_arg} \
+        ${novel_orf_arg} \
         ${alt_translation_arg} \
         ${extra_args} \
         --index-dir ${index_dir} \
