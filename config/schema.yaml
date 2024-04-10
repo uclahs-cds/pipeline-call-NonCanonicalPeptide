@@ -79,7 +79,7 @@ enable_encode_fasta:
   type: Bool
   required: false
   default: false
-  help: Whether to run `encodeFasta` on the variant peptide FASTA called by `callVariant` （runs once after `filterFasta` and `splitFasta`, if used). Defaults to `false`.
+  help: Whether to run `encodeFasta` on the variant peptide FASTA called by `callVariant` (runs once after `filterFasta` and `splitFasta`, if used). Defaults to `false`.
 enable_decoy_fasta:
   type: Bool
   required: false
