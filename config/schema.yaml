@@ -27,9 +27,9 @@ entrypoint:
     - fasta
   required: true
   help: When set to `parser`, it expects to receive raw variant files. When set to `gvf`, it expects to receive GVF files that are already parsed by moPepGen's parsers.
-ucla_cs:
+ucla_cds:
   type: Bool
-  default: true
+  default: false
   help: Whether to use UCLA-CDS' cluster specific configuration. Defaults to `true`.
   required: false
 save_intermediate_files:
@@ -79,7 +79,7 @@ enable_encode_fasta:
   type: Bool
   required: false
   default: false
-  help: Whether to run `encodeFasta` on the variant peptide FASTA called by `callVariant` （runs once after `filterFasta` and `splitFasta`, if used). Defaults to `false`.
+  help: Whether to run `encodeFasta` on the variant peptide FASTA called by `callVariant` (runs once after `filterFasta` and `splitFasta`, if used). Defaults to `false`.
 enable_decoy_fasta:
   type: Bool
   required: false

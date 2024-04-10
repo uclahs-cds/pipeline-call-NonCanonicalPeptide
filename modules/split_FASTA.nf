@@ -49,7 +49,7 @@ process split_FASTA {
     script:
     output_dir = filtered == true ? 'filter_split' : 'split'
     output_prefix = "${output_dir}/${params.sample_id}_split"
-    noncoding_arg = novel_orf_peptide.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--noncoding-peptides ${novel_orf_peptide}"
+    novel_orf_arg = novel_orf_peptide.name == params._DEFAULT_NOVEL_ORF_PEPTIDES ? '' : "--novel-orf-peptides ${novel_orf_peptide}"
     alt_translation_arg = alt_translation_peptide.name == params._DEFAULT_ALT_TRANSLATION_PEPTIDES ? '' : "--alt-translation-peptides ${alt_translation_peptide}"
     extra_args = generate_args(params, 'splitFasta', ARGS, FLAGS)
     """
@@ -58,7 +58,7 @@ process split_FASTA {
     moPepGen splitFasta \
         --gvf ${gvfs} \
         --variant-peptides ${variant_peptide} \
-        ${noncoding_arg} \
+        ${novel_orf_arg} \
         ${alt_translation_arg} \
         ${extra_args} \
         --index-dir ${index_dir} \
