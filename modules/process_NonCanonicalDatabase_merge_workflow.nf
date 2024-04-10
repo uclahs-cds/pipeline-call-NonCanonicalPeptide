@@ -16,23 +16,23 @@ include {
 workflow process_NonCanonicalDatabase_merge_workflow {
     take:
     gvf_files
-    variant_fasta
+    variant_peptide
 
     main:
     // mergeFasta
-    if (params.noncoding_peptides == params._DEFAULT_NOVEL_ORF_PEPTIDES) {
+    if (params.novel_orf_peptide == params._DEFAULT_NOVEL_ORF_PEPTIDES) {
         ich_noncoding_peptides = Channel.fromList()
     } else {
-        ich_noncoding_peptides = Channel.fromPath(params.noncoding_peptides)
+        ich_noncoding_peptides = Channel.fromPath(params.novel_orf_peptide)
     }
 
-    if (params.alt_translation_peptides == params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
+    if (params.alt_translation_peptide == params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
         ich_alt_translation_peptides = Channel.fromList()
     } else {
-        ich_alt_translation_peptides = Channel.fromPath(params.alt_translation_peptides)
+        ich_alt_translation_peptides = Channel.fromPath(params.alt_translation_peptide)
     }
 
-    ich_fastas_to_be_merged = variant_fasta
+    ich_fastas_to_be_merged = variant_peptide
         .mix(ich_noncoding_peptides)
         .mix(ich_alt_translation_peptides)
         .collect()

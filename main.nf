@@ -25,7 +25,7 @@ workflow {
         ch_gvf_files = resolve_conflictFileName.out.collect()
 
         if (params.entrypoint == 'fasta') {
-            ch_variant_fasta = Channel.fromPath(params.variant_fasta)
+            ch_variant_fasta = Channel.fromPath(params.variant_peptide)
         } else {
             call_VariantPeptide(ch_gvf_files, file(params.index_dir))
             ch_variant_fasta = call_VariantPeptide.out[0]
@@ -35,8 +35,8 @@ workflow {
     summarize_FASTA(
         ch_gvf_files,
         ch_variant_fasta,
-        file(params.noncoding_peptides),
-        file(params.alt_translation_peptides),
+        file(params.novel_orf_peptide),
+        file(params.alt_translation_peptide),
         file(params.index_dir),
         'NO_TAG'
     )

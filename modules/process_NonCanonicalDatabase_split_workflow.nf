@@ -20,7 +20,7 @@ include {
 workflow process_NonCanonicalDatabase_split_workflow {
     take:
     gvf_files
-    variant_fasta
+    variant_peptide
 
     main:
 
@@ -28,9 +28,9 @@ workflow process_NonCanonicalDatabase_split_workflow {
     if (params.process_unfiltered_fasta) {
         split_FASTA_unfiltered(
             gvf_files,
-            variant_fasta,
-            file(params.noncoding_peptides),
-            file(params.alt_translation_peptides),
+            variant_peptide,
+            file(params.novel_orf_peptide),
+            file(params.alt_translation_peptide),
             file(params.index_dir),
             false
         )
@@ -39,37 +39,37 @@ workflow process_NonCanonicalDatabase_split_workflow {
 
     if (params.enable_filter_fasta) {
         // filterFasta Noncoding
-        if (params.noncoding_peptides != params._DEFAULT_NOVEL_ORF_PEPTIDES) {
+        if (params.novel_orf_peptide != params._DEFAULT_NOVEL_ORF_PEPTIDES) {
             filter_FASTA_novelORF (
-                file(params.noncoding_peptides),
+                file(params.novel_orf_peptide),
                 file(params.exprs_table),
                 file(params.index_dir),
-                'noncoding_peptides'
+                'novel_orf_peptide'
             )
             ch_novelORF_peptides_filtered = filter_FASTA_novelORF.out[0]
         } else {
-            ch_novelORF_peptides_filtered = file(params.noncoding_peptides)
+            ch_novelORF_peptides_filtered = file(params.novel_orf_peptide)
         }
 
         // filterFasta alt translation
-        if (params.alt_translation_peptides != params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
+        if (params.alt_translation_peptide != params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
             filter_FASTA_altTrans (
-                file(params.alt_translation_peptides),
+                file(params.alt_translation_peptide),
                 file(params.exprs_table),
                 file(params.index_dir),
-                'alt_translation_peptides'
+                'alt_translation_peptide'
             )
             ch_altTrans_peptides_filtered = filter_FASTA_altTrans.out[0]
         } else {
-            ch_altTrans_peptides_filtered = file(params.alt_translation_peptides)
+            ch_altTrans_peptides_filtered = file(params.alt_translation_peptide)
         }
 
         // filterFasta Variant
         filter_FASTA_variant(
-            variant_fasta,
+            variant_peptide,
             file(params.exprs_table),
             file(params.index_dir),
-            'variant_peptides'
+            'variant_peptide'
         )
         ch_variant_peptides_filtered = filter_FASTA_variant.out[0]
 
