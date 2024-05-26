@@ -43,30 +43,32 @@ workflow parse_SourceVariant_workflow {
         def mxe = '_NO_FILE'
         def ri = '_NO_FILE'
         for (x in it[1]) {
-        switch( x[1] ) {
-            case 'SE':
-                se = x[3];
-                break
-            case 'A5SS':
-                a5ss = x[3]
-                break
-            case 'A3SS':
-                a3ss = x[3]
-                break
-            case 'MXE':
-                mxe = x[3]
-                break
-            case 'RI':
-                ri = x[3]
-                break
-            default:
-                throw new Exception("rMATS type ${x[1]} unknown")
-        }
+            switch( x[1] ) {
+                case 'SE':
+                    se = x[3];
+                    break
+                case 'A5SS':
+                    a5ss = x[3]
+                    break
+                case 'A3SS':
+                    a3ss = x[3]
+                    break
+                case 'MXE':
+                    mxe = x[3]
+                    break
+                case 'RI':
+                    ri = x[3]
+                    break
+                default:
+                    throw new Exception("rMATS type ${x[1]} unknown")
+            }
         }
         return [source, se, a5ss, a3ss, mxe, ri]
     }
 
-    parse_VEP(ich_branched.vep, file(params.index_dir))
+    ich_vep = ich_branched.vep.groupTuple(by:0)
+
+    parse_VEP(ich_vep, file(params.index_dir))
     parse_STARFusion(ich_branched.star_fusion, file(params.index_dir))
     parse_FusionCatcher(ich_branched.fusion_catcher, file(params.index_dir))
     parse_Arriba(ich_branched.arriba, file(params.index_dir))

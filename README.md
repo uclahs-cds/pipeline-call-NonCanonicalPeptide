@@ -68,7 +68,7 @@ The fields required for the input CSV files are listed below. See example [here]
 | ---------- | -------- | ----------- |
 | software | yes | The software used to call this variant. Must come from VEP, STAR-Fusion, rMATS, CIRCexplorer, and REDItools. |
 | alt_splic_type | no | Alternative splicing type. Required for rMATS. Must come from SE, A5SS, A3SS, MXE, and RI. |
-| source | yes | Source of the variant. For example, gSNP, sSNV, Fusion, circRNA, etc |
+| source | yes | Source of the variant. For example, gSNP, sSNV, Fusion, circRNA, etc. |
 | path | yes | Path to the variant file. |
 
 ### Entrypoint: 'gvf' or 'fasta'
