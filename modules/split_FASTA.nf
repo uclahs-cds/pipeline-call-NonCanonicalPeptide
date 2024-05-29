@@ -34,17 +34,17 @@ process split_FASTA {
         saveAs: { "log${file(it).name}" }
 
     input:
-        file gvfs
-        file variant_peptide
-        file novel_orf_peptide
-        file alt_translation_peptide
-        file index_dir
+        path gvfs
+        path variant_peptide
+        path novel_orf_peptide
+        path alt_translation_peptide
+        path index_dir
         val filtered
 
     output:
-        file output_dir
-        file "${output_dir}/*.fasta"
-        file ".command.*"
+        path output_dir
+        path "${output_dir}/*.fasta"
+        path ".command.*"
 
     script:
     output_dir = filtered == true ? 'filter_split' : 'split'

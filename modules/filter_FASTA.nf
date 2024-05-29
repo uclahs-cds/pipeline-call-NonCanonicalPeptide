@@ -32,14 +32,14 @@ process filter_FASTA {
         saveAs: { "log${file(it).name}" }
 
     input:
-        file input_fasta
-        file exprs_table
-        file index_dir
+        path input_fasta
+        path exprs_table
+        path index_dir
         val indicator
 
     output:
-        file output_fasta
-        file ".command.*"
+        path output_fasta
+        path ".command.*"
 
     script:
     output_fasta = "${params.sample_id}_${indicator}_filtered.fasta"
