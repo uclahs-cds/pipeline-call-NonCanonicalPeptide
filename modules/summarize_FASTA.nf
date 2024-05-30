@@ -29,16 +29,16 @@ process summarize_FASTA {
         saveAs: { "log${file(it).name}" }
 
     input:
-        path gvfs
-        path variant_peptide
-        path novel_orf_peptide
-        path alt_translation_peptide
-        path index_dir
+        file gvfs
+        file variant_peptide
+        file novel_orf_peptide
+        file alt_translation_peptide
+        file index_dir
         val tag
 
     output:
-        path output_summary
-        path ".command.*"
+        file output_summary
+        file ".command.*"
 
     script:
     output_summary = tag == 'NO_TAG' ? "${variant_peptide.baseName}_summary.txt" : "${variant_peptide.baseName}_${tag}_summary.txt"

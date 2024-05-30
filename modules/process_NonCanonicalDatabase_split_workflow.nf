@@ -29,9 +29,9 @@ workflow process_NonCanonicalDatabase_split_workflow {
         split_FASTA_unfiltered(
             gvf_files,
             variant_peptide,
-            params.novel_orf_peptide,
-            params.alt_translation_peptide,
-            params.index_dir,
+            file(params.novel_orf_peptide),
+            file(params.alt_translation_peptide),
+            file(params.index_dir),
             false
         )
         encodeDecoy_FASTA_workflow_unfiltered(split_FASTA_unfiltered.out[1].flatten(), 'split')
@@ -41,9 +41,9 @@ workflow process_NonCanonicalDatabase_split_workflow {
         // filterFasta Noncoding
         if (params.novel_orf_peptide != params._DEFAULT_NOVEL_ORF_PEPTIDES) {
             filter_FASTA_novelORF (
-                params.novel_orf_peptide,
-                params.exprs_table,
-                params.index_dir,
+                file(params.novel_orf_peptide),
+                file(params.exprs_table),
+                file(params.index_dir),
                 'novel_orf_peptide'
             )
             ch_novelORF_peptides_filtered = filter_FASTA_novelORF.out[0]
@@ -54,9 +54,9 @@ workflow process_NonCanonicalDatabase_split_workflow {
         // filterFasta alt translation
         if (params.alt_translation_peptide != params._DEFAULT_ALT_TRANSLATION_PEPTIDES) {
             filter_FASTA_altTrans (
-                params.alt_translation_peptide,
-                params.exprs_table,
-                params.index_dir,
+                file(params.alt_translation_peptide),
+                file(params.exprs_table),
+                file(params.index_dir),
                 'alt_translation_peptide'
             )
             ch_altTrans_peptides_filtered = filter_FASTA_altTrans.out[0]
@@ -67,8 +67,8 @@ workflow process_NonCanonicalDatabase_split_workflow {
         // filterFasta Variant
         filter_FASTA_variant(
             variant_peptide,
-            params.exprs_table,
-            params.index_dir,
+            file(params.exprs_table),
+            file(params.index_dir),
             'variant_peptide'
         )
         ch_variant_peptides_filtered = filter_FASTA_variant.out[0]
@@ -89,7 +89,7 @@ workflow process_NonCanonicalDatabase_split_workflow {
             ch_variant_peptides_filtered,
             ch_novelORF_peptides_filtered,
             ch_altTrans_peptides_filtered,
-            params.index_dir,
+            file(params.index_dir),
             true
         )
         ch_split_filtered_fasta = split_FASTA_filtered.out[1].flatten()

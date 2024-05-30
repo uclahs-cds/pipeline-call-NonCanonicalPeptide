@@ -35,9 +35,9 @@ workflow {
     summarize_FASTA(
         ch_gvf_files,
         ch_variant_fasta,
-        params.novel_orf_peptide,
-        params.alt_translation_peptide,
-        params.index_dir,
+        file(params.novel_orf_peptide),
+        file(params.alt_translation_peptide),
+        file(params.index_dir),
         'NO_TAG'
     )
 
