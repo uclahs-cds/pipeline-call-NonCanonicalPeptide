@@ -5,6 +5,7 @@ include { parse_Arriba } from './parse_Arriba'
 include { parse_REDItools } from './parse_REDItools'
 include { parse_CIRCexplorer } from './parse_CIRCexplorer'
 include { parse_rMATS } from './parse_rMATS'
+include { resolve_conflictVEPFileName } from './resolve_conflictVEPFileName'
 
 /**
 * Workflow to call all moPepGen parsers
@@ -66,7 +67,9 @@ workflow parse_SourceVariant_workflow {
         return [source, se, a5ss, a3ss, mxe, ri]
     }
 
-    ich_vep = ich_branched.vep.groupTuple(by:0)
+    resolve_conflictVEPFileName(ich_branched.vep)
+
+    ich_vep = resolve_conflictVEPFileName.out[0].groupTuple(by:0)
 
     parse_VEP(ich_vep, file(params.index_dir))
     parse_STARFusion(ich_branched.star_fusion, file(params.index_dir))
