@@ -13,15 +13,15 @@ import groovy.io.FileType
 def generate_args(Map par, String namespace, Map args, Map flags) {
     def res = ''
     if(!(par.containsKey(namespace))) return res
-    for (it in par[namespace].keySet()) {
-        val = par[namespace][it]
-        if(it in args.keySet()) {
+    par[namespace].keySet().each { key ->
+        def val = par[namespace][key]
+        if (key in args.keySet()) {
             if (val in List) {
                 val = val.join(' ')
             }
-            res += " ${args[it]} ${val}"
-        } else if (it in flags.keySet() && val == true) {
-            res += " ${flags[it]}"
+            res += " ${args[key]} ${val}"
+        } else if (key in flags.keySet() && val == true) {
+            res += " ${flags[key]}"
         }
     }
     return res
