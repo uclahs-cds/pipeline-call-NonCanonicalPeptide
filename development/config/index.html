@@ -87,6 +87,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resource">Resource</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -118,7 +120,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Config</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/9753546a69c28e372e6b6d1bc103274197038a8e/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/85bdbf0c8a6ee55329085b35182ab112ca5a87ee/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -224,7 +226,7 @@
 </tbody>
 </table>
 <h3 id="tool-specific-namespaces">Tool specific namespaces</h3>
-<p>The variables below are set under tool specific namespaces. See <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/9753546a69c28e372e6b6d1bc103274197038a8e/test/test-integration-entrypoint-parser/test.config">this</a> example config to see how they are set. If the tool is not used, the namespace does not needs to be set. For example, if REDItools results is not included in the input CSV, <code>moPepGen parseREDItools</code> won't be called, so the <code>parseREDItools</code> namespace does not need to be present in the config file.</p>
+<p>The variables below are set under tool specific namespaces. See <a href="https://github.com/uclahs-cds/pipeline-call-NonCanonicalPeptide/blob/85bdbf0c8a6ee55329085b35182ab112ca5a87ee/test/test-integration-entrypoint-parser/test.config">this</a> example config to see how they are set. If the tool is not used, the namespace does not needs to be set. For example, if REDItools results is not included in the input CSV, <code>moPepGen parseREDItools</code> won't be called, so the <code>parseREDItools</code> namespace does not need to be present in the config file.</p>
 <h4 id="parsereditools">parseREDItools</h4>
 <table>
 <thead>
@@ -601,6 +603,16 @@
 </tr>
 </tbody>
 </table>
+<h3 id="resource">Resource</h3>
+<p><code>callVariant</code> uses 1 CPU and 2 GB of memory by default. To adjust resource usage for <code>callVariant</code>, add the code block below to the bottom of the config file (after <code>methods.setup()</code>).</p>
+<pre><code class="language-nextflow">process {
+    echo = false
+    withName: 'call_VariantPeptide' {
+        cpus = 8
+        memory = '30 GB'
+    }
+}
+</code></pre>
 <hr />
               
             </div>
