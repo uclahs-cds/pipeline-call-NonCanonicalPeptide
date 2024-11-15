@@ -206,6 +206,20 @@ Filter fasta can run separately for variant, noncoding, and alternative translat
 | `keep_peptide_nterm` | Whether to keep the peptide N terminus constant. `str`. Default: 'true' Choices: ['true', 'false'] |
 | `keep_peptide_cterm` | no | Whether to keep the peptide C terminus constant. `str` Default: 'true'. Choices: ['true', 'false'] |
 
+### Resource
+
+`callVariant` uses 1 CPU and 2 GB of memory by default. To adjust resource usage for `callVariant`, add the code block below to the bottom of the config file (after `methods.setup()`).
+
+```nextflow
+process {
+    echo = false
+    withName: 'call_VariantPeptide' {
+        cpus = 8
+        memory = '30 GB'
+    }
+}
+```
+
 ---
 
 ## Outputs
