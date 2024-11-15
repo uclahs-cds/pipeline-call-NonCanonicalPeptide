@@ -14,6 +14,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Change to group input VEP files by source.
 - Fix issue when `novel_orf_peptide` and `alt_translation_peptide` are not specified.
 - Fix file name collision of VEP files.
+- Set `ucla_cds` to `false` as default. #120
+- Set file path in test cases to environment variables.
 
 ## 1.0.0 - 2024/04/10
 
