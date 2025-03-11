@@ -6,7 +6,9 @@ ARGS = [
     'min_spanning_unique': '--min-spanning-unique'
 ]
 
-FLAGS = [:]
+FLAGS = [
+    'skip_failed': '--skip-failed'
+]
 
 def get_args_and_flags() {
     return [ARGS, FLAGS]

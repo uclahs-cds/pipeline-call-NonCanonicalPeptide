@@ -5,7 +5,9 @@ ARGS = [
     'min_est_j': '--min-est-j'
 ]
 
-FLAGS = [:]
+FLAGS = [
+    'skip_failed': '--skip-failed'
+]
 
 def get_args_and_flags() {
     return [ARGS, FLAGS]

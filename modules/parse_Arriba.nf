@@ -7,7 +7,9 @@ ARGS = [
     'min_confidence': '--min-confidence'
 ]
 
-FLAGS = [:]
+FLAGS = [
+    'skip_failed': '--skip-failed'
+]
 
 def get_args_and_flags() {
     return [ARGS, FLAGS]
