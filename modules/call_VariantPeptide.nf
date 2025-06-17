@@ -2,6 +2,10 @@
 include { generate_args } from "${moduleDir}/common"
 
 ARGS = [
+    'codon_table': '--codon-table',
+    'chr_codon_table': '--chr-codon-table',
+    'start_codons': '--start-codons',
+    'chr_start_codons': '--chr-start-codons',
     'max_variants_per_node': '--max-variants-per-node',
     'max_adjacent_as_mnv': '--max-adjacent-as-mnv',
     'additional_variants_per_misc': '--additional-variants-per-misc',
