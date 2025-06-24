@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-## 1.1.0-rc1 - 2024/06/24
+## 1.1.0-rc1 - 2025/06/24
 
 - Change to group input VEP files by source.
 - Fix issue when `novel_orf_peptide` and `alt_translation_peptide` are not specified.
