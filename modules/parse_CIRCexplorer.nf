@@ -10,7 +10,8 @@ ARGS = [
 ]
 
 FLAGS = [
-    'circexplorer3': '--circexplorer3'
+    'circexplorer3': '--circexplorer3',
+    'skip_failed': '--skip-failed'
 ]
 
 def get_args_and_flags() {

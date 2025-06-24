@@ -25,7 +25,8 @@ FLAGS = [
     'noncanonical_transcripts': '--noncanonical-transcripts',
     'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding',
     'selenocysteine_termination': '--selenocysteine-termination',
-    'w2f_reassignment': '--w2f-reassignment'
+    'w2f_reassignment': '--w2f-reassignment',
+    'skip_failed': '--skip-failed'
 ]
 
 def get_args_and_flags() {
