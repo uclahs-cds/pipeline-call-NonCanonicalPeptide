@@ -9,6 +9,7 @@ ARGS = [
     'max_variants_per_node': '--max-variants-per-node',
     'max_adjacent_as_mnv': '--max-adjacent-as-mnv',
     'additional_variants_per_misc': '--additional-variants-per-misc',
+    'in_bubble_cap_step_down': '--in-bubble-cap-step-down',
     'min_nodes_to_collapse': '--min-nodes-to-collapse',
     'naa_to_collapse': '--naa-to-collapse',
     'debug_level': '--debug-level',
@@ -24,7 +25,8 @@ FLAGS = [
     'noncanonical_transcripts': '--noncanonical-transcripts',
     'invalid_protein_as_noncoding': '--invalid-protein-as-noncoding',
     'selenocysteine_termination': '--selenocysteine-termination',
-    'w2f_reassignment': '--w2f-reassignment'
+    'w2f_reassignment': '--w2f-reassignment',
+    'skip_failed': '--skip-failed'
 ]
 
 def get_args_and_flags() {
