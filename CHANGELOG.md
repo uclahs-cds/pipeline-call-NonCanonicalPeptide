@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+- Add `--skip-failed` to parseREDItools
+
 ## 1.1.0-rc1 - 2025/06/24
 
 - Change to group input VEP files by source.
