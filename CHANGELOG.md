@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## 1.1.0-rc2 - 2025/07/21
+
 - Add `--skip-failed` to parseREDItools
 
 ## 1.1.0-rc1 - 2025/06/24
