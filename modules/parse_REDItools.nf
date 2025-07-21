@@ -8,7 +8,9 @@ ARGS = [
     'min_coverage_dna': '--min-coverage-dna'
 ]
 
-FLAGS = [:]
+FLAGS = [
+    'skip_failed': '--skip-failed'
+]
 
 def get_args_and_flags() {
     return [ARGS, FLAGS]
