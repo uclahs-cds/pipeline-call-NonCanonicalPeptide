@@ -1,6 +1,6 @@
 path
-/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gSNP.gvf
-/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/vep_gINDEL.gvf
-/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/reditools.gvf
-/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/circ_rna.gvf
-/hot/users/czhu/pipeline-call-NoncanonicalPeptide/pipeline-call-NoncanonicalPeptide/test/files/fusion.gvf
+pipeline-call-NoncanonicalPeptide/test/files/vep_gSNP.gvf
+pipeline-call-NoncanonicalPeptide/test/files/vep_gINDEL.gvf
+pipeline-call-NoncanonicalPeptide/test/files/reditools.gvf
+pipeline-call-NoncanonicalPeptide/test/files/circ_rna.gvf
+pipeline-call-NoncanonicalPeptide/test/files/fusion.gvf
